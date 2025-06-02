@@ -2,6 +2,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const Dotenv = require("dotenv-webpack");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = (env, argv) => {
   const isProduction = argv.mode === "production";
@@ -85,6 +86,11 @@ module.exports = (env, argv) => {
       new Dotenv({
         allowEmptyValues: true,
         systemvars: true,
+      }),
+      new CopyPlugin({
+        patterns: [
+          { from: "public/_redirects", to: "_redirects" }, // Netlify SPA 라우팅용
+        ],
       }),
     ],
   };
