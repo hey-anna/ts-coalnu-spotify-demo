@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import type { LazyExoticComponent, ComponentType } from "react";
 import { createBrowserRouter } from "react-router-dom";
+import Spinner from "../components/Spinner";
 // import ErrorPage from "../views/errors/ErrorPage";
 
 // 페이지 컴포넌트
@@ -12,7 +13,17 @@ import { createBrowserRouter } from "react-router-dom";
 
 // 레이지 로딩 컴포넌트들
 const AppLayout = lazy(() => import("../layout/AppLayout"));
-const HomePage = lazy(() => import("../views/HomePage/HomePage"));
+const HomePage = lazy(
+  () =>
+    new Promise<{ default: ComponentType<any> }>((resolve) => {
+      setTimeout(() => {
+        import("../views/HomePage/HomePage").then((module) =>
+          resolve({ default: module.default }),
+        );
+      }, 3000);
+    }),
+);
+// const HomePage = lazy(() => import("../views/HomePage/HomePage"));
 const SearchPage = lazy(() => import("../views/SearchPage/SearchPage"));
 const SearchWithKeywordPage = lazy(
   () => import("../views/SearchWithKeywordPage/SearchWithKeywordPage"),
@@ -24,7 +35,7 @@ const PlaylistPage = lazy(() => import("../views/PlaylistPage/PlaylistPage"));
 
 // Suspense로 감싸는 helper
 const withSuspense = (Component: LazyExoticComponent<ComponentType<any>>) => (
-  <Suspense fallback={<div>Loading...</div>}>
+  <Suspense fallback={<Spinner />}>
     <Component />
   </Suspense>
 );

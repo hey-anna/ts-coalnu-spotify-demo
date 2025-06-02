@@ -18,7 +18,21 @@ module.exports = (env, argv) => {
         // 다양한 파일 형식을 처리하기 위한 규칙을 정의합니다.
         {
           test: /\.css$/i,
-          use: ["style-loader", "css-loader"],
+          use: [
+            "style-loader",
+            "css-loader",
+            {
+              loader: "postcss-loader",
+              options: {
+                postcssOptions: {
+                  plugins: [
+                    require("@tailwindcss/postcss"),
+                    require("autoprefixer"),
+                  ],
+                },
+              },
+            },
+          ],
         },
         {
           test: /\.svg$/,
