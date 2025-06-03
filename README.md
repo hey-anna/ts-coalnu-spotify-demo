@@ -32,7 +32,7 @@ React Router v7.6.1, Tailwind CSS, Webpack 등을 활용하여 모던한 웹 애
 
 - **프레임워크**: React 19.1
 - **라우팅**: React Router v7.6.1
-- **스타일링**: Tailwind CSS 4.1.8
+- **스타일링**: Tailwind CSS 4.1.8, MUI (Material UI)
 - **번들러**: Webpack 5.99.9
 - **패키지 매니저**: Yarn
 - **프로그래밍 언어**: TypeScript
@@ -50,6 +50,10 @@ React Router v7.6.1, Tailwind CSS, Webpack 등을 활용하여 모던한 웹 애
 | `eslint` / `prettier`    | 코드 품질 및 일관성을 유지하기 위한 린팅 및 포매팅 도구입니다.                                |
 | `@testing-library/react` | React 컴포넌트의 테스트를 위한 도구로, 사용자 중심의 테스트를 지원합니다.                     |
 | `react-spinners`         | 로딩 상태를 시각적으로 표현하기 위한 스피너 컴포넌트 라이브러리입니다.                        |
+| `@mui/material`          | 구글의 Material Design을 기반으로 한 UI 컴포넌트 라이브러리입니다.                            |
+| `@mui/icons-material`    | Material Design 아이콘 컴포넌트 라이브러리입니다.                                             |
+| `@emotion/react`         | MUI 스타일링 시스템을 위한 Emotion의 core 패키지입니다.                                       |
+| `@emotion/styled`        | Emotion의 styled API로, MUI 컴포넌트와 함께 사용됩니다.                                       |
 
 ---
 
@@ -97,6 +101,9 @@ yarn add -D @testing-library/react @testing-library/jest-dom @testing-library/us
 
 # 기타 유틸리티 패키지 설치
 yarn add react-spinners
+
+# MUI(Material UI) 관련 패키지 설치
+yarn add @mui/material @mui/icons-material @emotion/react @emotion/styled
 ```
 
 ---
