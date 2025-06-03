@@ -1,13 +1,3 @@
-// const Spinner = () => {
-//   return (
-//     <div className="flex items-center space-x-2 p-4">
-//       <div className="w-3 h-3 rounded-full bg-blue-500 animate-bounce-glow"></div>
-//       <span className="text-black font-medium">로딩 중입니다...</span>
-//     </div>
-//   );
-// };
-
-// export default Spinner;
 import BounceLoader from "react-spinners/BounceLoader";
 
 export default function SidebarLoading() {

@@ -4,26 +4,9 @@ import { createBrowserRouter } from "react-router-dom";
 import Spinner from "../components/Spinner";
 // import ErrorPage from "../views/errors/ErrorPage";
 
-// 페이지 컴포넌트
-// import HomePage from "../views/HomePage/HomePage";
-// import SearchPage from "../views/SearchPage/SearchPage";
-// import SearchWithKeywordPage from "../views/SearchWithKeywordPage";
-// import PlaylistDetailPage from "../views/PlaylistDetailPage";
-// import PlaylistPage from "../views/PlaylistPage";
-
 // 레이지 로딩 컴포넌트들
 const AppLayout = lazy(() => import("../layout/AppLayout"));
-const HomePage = lazy(
-  () =>
-    new Promise<{ default: ComponentType<any> }>((resolve) => {
-      setTimeout(() => {
-        import("../views/HomePage/HomePage").then((module) =>
-          resolve({ default: module.default }),
-        );
-      }, 3000);
-    }),
-);
-// const HomePage = lazy(() => import("../views/HomePage/HomePage"));
+const HomePage = lazy(() => import("../views/HomePage/HomePage"));
 const SearchPage = lazy(() => import("../views/SearchPage/SearchPage"));
 const SearchWithKeywordPage = lazy(
   () => import("../views/SearchWithKeywordPage/SearchWithKeywordPage"),
