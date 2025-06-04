@@ -17,6 +17,18 @@ const TypographyGroup = styled(Box)({
   gap: "4px",
 });
 
+const CreatePlaylistButton = styled(Button)(({ theme }) => ({
+  borderRadius: "9999px",
+  backgroundColor: theme.palette.common.white,
+  color: theme.palette.common.black,
+  fontWeight: 700,
+  textTransform: "none",
+  width: "fit-content",
+  "&:hover": {
+    backgroundColor: theme.palette.grey[300],
+  },
+}));
+
 const EmptyPlaylist = () => {
   return (
     <EmptyBox>
@@ -26,22 +38,9 @@ const EmptyPlaylist = () => {
         </Typography>
         <Typography variant="body2">It's easy, we'll help you</Typography>
       </TypographyGroup>
-      <Button
-        variant="contained"
-        sx={{
-          borderRadius: "9999px",
-          backgroundColor: "#fff",
-          color: "#000",
-          fontWeight: 700,
-          textTransform: "none",
-          width: "fit-content",
-          "&:hover": {
-            backgroundColor: "#e6e6e6",
-          },
-        }}
-      >
+      <CreatePlaylistButton variant="contained">
         Create playlist
-      </Button>
+      </CreatePlaylistButton>
     </EmptyBox>
   );
 };

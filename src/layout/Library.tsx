@@ -4,7 +4,7 @@ import LibraryHead from "./sideBar/LibraryHead";
 import EmptyPlaylist from "./sideBar/EmptyPlaylist";
 
 const LibraryContainer = styled(Box)(({ theme }) => ({
-  backgroundColor: theme.palette.background.paper,
+  // backgroundColor: theme.palette.background.paper,
   padding: "12px",
   borderRadius: "8px",
   display: "flex",

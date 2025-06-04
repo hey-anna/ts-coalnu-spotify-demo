@@ -1,5 +1,5 @@
 // layout/components/LibraryHead.tsx
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { Bookmark, Add } from "@mui/icons-material";
 
@@ -8,6 +8,8 @@ const HeaderContainer = styled(Box)(({ theme }) => ({
   justifyContent: "space-between",
   alignItems: "center",
   padding: "8px",
+  paddingLeft: 0,
+  paddingRight: 0,
   color: theme.palette.text.primary,
 }));
 
@@ -26,7 +28,9 @@ const LibraryHead = () => {
           Your Library
         </Typography>
       </IconTextWrapper>
-      <Add sx={{ color: "#77d36f" }} />
+      <Button>
+        <Add sx={{ color: "#77d36f" }} />
+      </Button>
     </HeaderContainer>
   );
 };

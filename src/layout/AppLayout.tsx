@@ -1,15 +1,11 @@
 import { styled, Typography } from "@mui/material";
 import { Outlet } from "react-router-dom";
-import type { NavLinkProps } from "react-router-dom";
 // import theme from "../theme/theme";
 import { Box } from "@mui/material";
 import { Home, Search } from "@mui/icons-material";
 import { NavLink } from "react-router-dom";
 import Library from "./Library";
 
-interface StyledNavLinkProps extends NavLinkProps {
-  isActive?: boolean;
-}
 const Layout = styled("div")({
   display: "flex",
   height: "100vh",
@@ -47,41 +43,17 @@ const NavList = styled("ul")({
   gap: "16px",
 });
 
-// const StyledNavLink = styled(NavLink)<StyledNavLinkProps>(
-//   () =>
-//     ({ theme, isActive }) => ({
-//       textDecoration: "none",
-//       display: "flex",
-//       alignItems: "center",
-//       gap: "20px",
-//       // color: theme.palette.text.secondary,
-//       color: isActive
-//         ? theme.palette.text.primary
-//         : theme.palette.text.secondary,
-//       "&:hover": {
-//         color: theme.palette.text.primary,
-//       },
-//       // "&:active": {
-//       //   color: theme.palette.text.primary,
-//       // },
-//     }),
-// );
-
 const StyledRouterLink = styled(NavLink)({
   textDecoration: "none",
 });
 
 const NavItem = styled("div")<{ isActive?: boolean }>(
   ({ theme, isActive }) => ({
-    // textDecoration: "none",
     display: "flex",
     alignItems: "center",
     gap: "20px",
-    // color: isActive ? "#77d36f" : theme.palette.text.secondary,
     color: isActive ? theme.palette.text.primary : theme.palette.text.secondary,
-    // fontWeight: isActive ? 700 : 400,
-    // fontWeight: 700,
-    // cursor: "pointer",
+
     "&:hover": {
       color: theme.palette.text.primary,
     },
@@ -119,22 +91,12 @@ const AppLayout = () => {
                 )}
               </StyledRouterLink>
             </li>
-            {/* <StyledNavLink to="/" end>
-              <Home />
-              <Typography variant="h2" fontWeight={700}>
-                Home
-              </Typography>
-            </StyledNavLink>
-            <StyledNavLink to="/search">
-              <Search />{" "}
-              <Typography variant="h2" fontWeight={700}>
-                Search
-              </Typography>
-            </StyledNavLink> */}
           </NavList>
         </ContentBox>
         {/* === 라이브러리 영역 (Your Library + 플레이리스트) === */}
-        <Library />
+        <ContentBox height="100%">
+          <Library />
+        </ContentBox>
       </Sidebar>
       <Outlet />
     </Layout>
