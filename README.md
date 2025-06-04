@@ -54,6 +54,8 @@ React Router v7.6.1, Tailwind CSS, Webpack 등을 활용하여 모던한 웹 애
 | `@mui/icons-material`    | Material Design 아이콘 컴포넌트 라이브러리입니다.                                             |
 | `@emotion/react`         | MUI 스타일링 시스템을 위한 Emotion의 core 패키지입니다.                                       |
 | `@emotion/styled`        | Emotion의 styled API로, MUI 컴포넌트와 함께 사용됩니다.                                       |
+| `@tanstack/react-query`  | 서버 상태를 효과적으로 관리할 수 있는 React Query 라이브러리입니다.                           |
+| `axios`                  | HTTP 요청을 처리하기 위한 경량화된 비동기 통신 라이브러리입니다.                              |
 
 ---
 
@@ -104,6 +106,13 @@ yarn add react-spinners
 
 # MUI(Material UI) 관련 패키지 설치
 yarn add @mui/material @mui/icons-material @emotion/react @emotion/styled
+
+# TanStack Query (React Query)
+yarn add @tanstack/react-query
+
+# Axios (API 호출용)
+yarn add axios
+
 ```
 
 ---

@@ -25,3 +25,10 @@ yarn-error.log*
 # dist 빌드 폴더는 무시하지만, _redirects 파일은 포함
 dist/*
 !dist/_redirects
+
+# 환경 변수 파일 (개발/운영/테스트 등)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
