@@ -10,6 +10,7 @@ const useGetNewReleases = () => {
   });
 };
 
+export default useGetNewReleases;
 // queryKey
 // 내가 현재 만들 useQuery의 id값
 // id값에 따라서 id를 가진 쿼리의 캐시가 업데이트 할 차례다.
