@@ -5,11 +5,13 @@ import { Box } from "@mui/material";
 import { Home, Search } from "@mui/icons-material";
 import { NavLink } from "react-router-dom";
 import Library from "./Library";
+import Navbar from "./Navbar";
 
 const Layout = styled("div")({
   display: "flex",
   height: "100vh",
   padding: "8px",
+  gap: "8px",
 });
 
 // mui 나 우리가 정한 theme 값 가져오기
@@ -31,7 +33,9 @@ const ContentBox = styled(Box)(({ theme }) => ({
   width: "100%",
   padding: "8px",
   // marginBottom: "8px",
-  marginRight: "8px",
+  // marginRight: "8px",
+  // display: "flex",
+  // gap: "10px",
 }));
 
 const NavList = styled("ul")({
@@ -98,7 +102,11 @@ const AppLayout = () => {
           <Library />
         </ContentBox>
       </Sidebar>
-      <Outlet />
+      {/* === 컨텐츠 영역 === */}
+      <ContentBox>
+        <Navbar />
+        <Outlet />
+      </ContentBox>
     </Layout>
   );
 };
