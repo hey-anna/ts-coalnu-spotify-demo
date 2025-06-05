@@ -1,11 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
 import { getNewReleases } from "../apis/albumApi";
+import useClientCredentialToken from "./useClientCredentialToken";
 
 const useGetNewReleases = () => {
+  const clientCreadentialToken = useClientCredentialToken();
   return useQuery({
     queryKey: ["new-releases"],
     queryFn: async () => {
-      return getNewReleases();
+      if (!clientCreadentialToken) {
+        throw new Error("No token available"); // undefined 거름망
+      }
+      return getNewReleases(clientCreadentialToken);
     },
   });
 };

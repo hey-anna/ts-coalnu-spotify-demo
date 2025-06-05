@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import LibraryHead from "./sidebars/LibraryHead";
-import EmptyPlaylist from "./sidebars/EmptyPlaylist";
+import LibraryHead from "./sidebar/LibraryHead";
+import EmptyPlaylist from "./sidebar/EmptyPlaylist";
 
 const LibraryContainer = styled(Box)(({ theme }) => ({
   // backgroundColor: theme.palette.background.paper,

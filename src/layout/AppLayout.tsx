@@ -73,7 +73,7 @@ const AppLayout = () => {
           <NavList>
             <li>
               <StyledRouterLink to="/" end>
-                {({ isActive }) => (
+                {({ isActive }: { isActive: boolean }) => (
                   <NavItem isActive={isActive}>
                     <Home />
                     <Typography variant="h2" fontWeight={700}>
@@ -85,7 +85,7 @@ const AppLayout = () => {
             </li>
             <li>
               <StyledRouterLink to="/search">
-                {({ isActive }) => (
+                {({ isActive }: { isActive: boolean }) => (
                   <NavItem isActive={isActive}>
                     <Search />
                     <Typography variant="h2" fontWeight={700}>
