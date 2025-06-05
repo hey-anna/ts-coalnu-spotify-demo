@@ -19,13 +19,14 @@ const NewReleases = () => {
         New Released Albums
       </Typography>
       {data && data.albums.items.length > 0 ? (
-        <Grid container spacing={2}>
+        <Grid container spacing={0.5}>
           {data.albums.items.map((album) => (
             <Grid size={{ xs: 6, sm: 4, md: 2 }} key={album.id}>
               <BasicCard
                 image={album.images[0].url}
                 name={album.name}
                 artistsName={album.artists[0].name}
+                onPlayClick={() => console.log(`재생: ${album.name}`)}
               />
               {/* <img src={album.images[0].url} />
               <Typography>{album.name}</Typography>
