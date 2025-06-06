@@ -18,7 +18,7 @@ const useExchangeToken = () => {
       localStorage.removeItem("code_verifier");
     },
     onError: (error) => {
-      console.error("❌ **Token exchange mutation error:", error);
+      console.error("Token exchange mutation error:", error);
     },
   });
 };

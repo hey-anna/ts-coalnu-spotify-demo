@@ -20,7 +20,7 @@ export const getSpotifyAuthUrl = async () => {
 
   // generated in the previous step
   window.localStorage.setItem("code_verifier", codeVerifier);
-  console.log("✅ 저장된 code_verifier:", codeVerifier); // ⬅️ 여기!
+  console.log("저장된 code_verifier:", codeVerifier);
   if (clientId && redirectUri) {
     const params: AuthUrlParams = {
       response_type: "code",

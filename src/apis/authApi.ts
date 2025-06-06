@@ -72,7 +72,7 @@ export const exchangeToken = async (
       },
     });
 
-    console.log("🔐 Sending token exchange request with:");
+    console.log("Sending token exchange request with:");
     console.log("client_id:", CLIENT_ID);
     console.log("grant_type:", "authorization_code");
     console.log("code:", code);
@@ -81,7 +81,7 @@ export const exchangeToken = async (
 
     return response.data;
   } catch (error: any) {
-    console.error("❌ Token exchange failed:", error.response?.data || error);
+    console.error("Token exchange failed:", error.response?.data || error);
     throw new Error("fail to fetch token");
   }
 };
