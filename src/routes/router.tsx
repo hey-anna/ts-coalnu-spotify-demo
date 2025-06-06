@@ -1,8 +1,8 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import type { LazyExoticComponent, ComponentType } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import Spinner from "../components/Spinner";
-// import ErrorPage from "../views/errors/ErrorPage";
+import ErrorPage from "../views/ErrorPage/ErrorPage";
 
 // 레이지 로딩 컴포넌트들
 const AppLayout = lazy(() => import("../layout/AppLayout"));
@@ -16,6 +16,8 @@ const PlaylistDetailPage = lazy(
 );
 const PlaylistPage = lazy(() => import("../views/PlaylistPage/PlaylistPage"));
 
+const CallbackPage = lazy(() => import("../views/CallbackPage/CallbackPage"));
+
 // Suspense로 감싸는 helper
 const withSuspense = (Component: LazyExoticComponent<ComponentType<any>>) => (
   <Suspense fallback={<Spinner />}>
@@ -27,7 +29,7 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: withSuspense(AppLayout),
-    // errorElement: <ErrorPage />,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
@@ -49,6 +51,10 @@ export const router = createBrowserRouter([
         path: "playlist",
         element: withSuspense(PlaylistPage),
       }, // 모바일
+      {
+        path: "callback",
+        element: withSuspense(CallbackPage),
+      },
     ],
   },
 ]);
