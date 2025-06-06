@@ -1,6 +1,6 @@
 import { Grid, Typography } from "@mui/material";
 import useGetNewReleases from "../../hooks/useGetNewReleases";
-import Spinner from "../../components/Spinner";
+import Spinner from "../../components/spinner/CommonSpinner";
 import ErrorMessage from "../../components/Alert/ErrorMessage";
 import BasicCard from "../../components/card/BasicCard";
 

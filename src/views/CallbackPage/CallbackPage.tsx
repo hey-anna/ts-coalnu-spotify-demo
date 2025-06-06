@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import useExchangeToken from "../../hooks/useExchangeToken";
 
@@ -6,20 +6,30 @@ const CallbackPage = () => {
   // const urlParams = new URLSearchParams(window.location.search);
   const [searchParams] = useSearchParams(); // 권장 방식
   const navigate = useNavigate();
+  const [codeVerifier, setCodeVerifier] = useState<string | null>(null);
 
   // let code = urlParams.get("code");
   const code = searchParams.get("code"); // 권장 방식
-  const codeVerifier = localStorage.getItem("code_verifier");
+  //   const codeVerifier = localStorage.getItem("code_verifier");
   const { mutate: exchangeToken } = useExchangeToken();
 
   const isCalled = useRef(false);
 
   useEffect(() => {
+    // localStorage 값은 클라이언트 사이드에서만 사용 가능 → 마운트 후 세팅
+    setCodeVerifier(localStorage.getItem("code_verifier"));
+  }, []);
+
+  useEffect(() => {
     if (code && codeVerifier) {
+      if (!code || !codeVerifier || isCalled.current) return;
+      //   if (isCalled.current) return;
+
       exchangeToken(
         { code, codeVerifier },
         {
           onSuccess: (data) => {
+            isCalled.current = true; //  최초 한 번만 실행
             // 1. code로 토큰 요청
             // 2. 토큰 저장 (예: localStorage.setItem)
             // 3. 리디렉션 (그런 다음 원래 페이지로 이동)
@@ -32,7 +42,7 @@ const CallbackPage = () => {
             navigate(redirect);
             // navigate 이후 URL 정리
             setTimeout(() => {
-              window.history.replaceState({}, document.title, "/callback");
+              window.history.replaceState({}, document.title, "/");
             }, 0);
             // window.history.replaceState({}, document.title, "/callback"); // code 제거
           },

@@ -1,7 +1,7 @@
 import { lazy, Suspense, useEffect } from "react";
 import type { LazyExoticComponent, ComponentType } from "react";
 import { createBrowserRouter } from "react-router-dom";
-import Spinner from "../components/Spinner";
+import CommonSpinner from "../components/spinner/CommonSpinner";
 import ErrorPage from "../views/ErrorPage/ErrorPage";
 
 // 레이지 로딩 컴포넌트들
@@ -20,7 +20,7 @@ const CallbackPage = lazy(() => import("../views/CallbackPage/CallbackPage"));
 
 // Suspense로 감싸는 helper
 const withSuspense = (Component: LazyExoticComponent<ComponentType<any>>) => (
-  <Suspense fallback={<Spinner />}>
+  <Suspense fallback={<CommonSpinner />}>
     <Component />
   </Suspense>
 );
