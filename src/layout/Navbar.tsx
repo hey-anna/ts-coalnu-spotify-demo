@@ -32,7 +32,7 @@ const Navbar = () => {
           justifyContent="center"
           alignItems="center"
         >
-          <img
+          {/* <img
             src={userProfile.images?.[0]?.url || "/images/profile-default.png"}
             alt="프로필 이미지"
             style={{
@@ -40,7 +40,27 @@ const Navbar = () => {
               height: "100%",
               objectFit: "cover",
             }}
-          />
+          /> */}
+          {userProfile.images?.[0]?.url ? (
+            <img
+              src={userProfile.images[0].url}
+              alt="프로필 이미지"
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+              }}
+            />
+          ) : (
+            <AccountCircle
+              sx={{
+                width: "119%",
+                height: "119%",
+                // fontSize: "100%",
+                color: "#718096",
+              }}
+            />
+          )}
         </Box>
       ) : (
         <LoginButton />
