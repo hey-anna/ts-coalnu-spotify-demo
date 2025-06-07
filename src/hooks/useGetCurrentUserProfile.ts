@@ -9,12 +9,18 @@ import { useEffect, useState } from "react";
 
 // 항상 실행하는게 아니라, enabled: accessToken 있을때 만 실행하게 변경
 const useGetCurrentUserProfile = (): UseQueryResult<User, Error> => {
-  //   const accessToken = localStorage.getItem("access_token");
-  const accessToken =
-    typeof window !== "undefined" ? localStorage.getItem("access_token") : null;
+  const accessToken = localStorage.getItem("access_token");
+  //   const accessToken =
+  //     typeof window !== "undefined" ? localStorage.getItem("access_token") : null;
+
   //   const [accessToken, setAccessToken] = useState<string | null>(null);
+  //     useEffect(() => {
+  //       setAccessToken(localStorage.getItem("access_token"));
+  //     }, []);
+
   //   useEffect(() => {
-  //     setAccessToken(localStorage.getItem("access_token"));
+  //     const token = localStorage.getItem("access_token");
+  //     if (token) setAccessToken(token);
   //   }, []);
 
   return useQuery({
@@ -32,3 +38,5 @@ export default useGetCurrentUserProfile;
 // 프로파일 파일 바로 안뜸
 // 쿼리키 값 무효화 시켜주기 - 아이디 캐시값 지워주겠다
 // 그러면 다시 데이터 가져온다.
+
+// useExchangeToken.tsx
