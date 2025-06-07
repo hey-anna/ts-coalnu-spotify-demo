@@ -33,7 +33,7 @@ const Navbar = () => {
           alignItems="center"
         >
           <img
-            src={userProfile.images[0]?.url || "/images/profile-default.png"}
+            src={userProfile.images?.[0]?.url || "/images/profile-default.png"}
             alt="프로필 이미지"
             style={{
               width: "100%",
