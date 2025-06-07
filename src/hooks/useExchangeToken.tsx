@@ -21,9 +21,10 @@ const useExchangeToken = () => {
       localStorage.removeItem("code_verifier");
       // 직접 새 쿼리 실행해서 데이터 가져오기
       const profile = await getCurrentUserProfile();
-
       // 쿼리 캐시에 강제로 세팅
       queryClient.setQueryData(["current-user-profile"], profile);
+
+      // 캐시 무효화 코드 삭제
       // queryClient.invalidateQueries({
       //   queryKey: ["current-user-profile"], // useGetCurrentUserProfile.ts // 쿼리 키값 무효화
       // });
@@ -42,3 +43,5 @@ export default useExchangeToken;
 // 쿼리 키값 무효화 ?
 // queryKey: ["current-user-profile"] 이아디 밑으로 저장되어 있었던 정보를 다 없애겠다
 // 그러면 이걸 무효화 시키면서, 다시 새로운 프로파일(이미지등) 정보를 가져오게 된다
+
+// 캐시 무효과 코드 적용되지 않아, 쿼리 캐시 강제 세팅으로 fix
