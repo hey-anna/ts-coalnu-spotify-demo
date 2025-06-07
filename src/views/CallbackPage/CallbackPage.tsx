@@ -39,7 +39,7 @@ const CallbackPage = () => {
             localStorage.removeItem("code_verifier"); // 재사용 방지
             const redirect = localStorage.getItem("redirectAfterLogin") || "/";
             console.log("navigate to:", redirect);
-            navigate(redirect);
+            navigate(redirect, { replace: true });
             // navigate 이후 URL 정리
             setTimeout(() => {
               window.history.replaceState({}, document.title, "/");
