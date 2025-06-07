@@ -1,9 +1,9 @@
+import authApiInstance from "../utils/api/authApiInstance";
 import { User } from "../models/user";
-import api from "../utils/api";
 
 export const getCurrentUserProfile = async (): Promise<User> => {
   try {
-    const response = await api.get(`/me`);
+    const response = await authApiInstance.get(`/me`);
     return response.data;
   } catch (error) {
     throw new Error("fail to fetch user profile");
