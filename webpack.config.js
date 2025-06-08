@@ -104,6 +104,7 @@ module.exports = (env, argv) => {
       new CopyPlugin({
         patterns: [
           { from: "public/_redirects", to: "_redirects" }, // Netlify SPA 라우팅용
+          { from: "public/images", to: "images" }, // 정적 이미지 복사
         ],
       }),
     ],
