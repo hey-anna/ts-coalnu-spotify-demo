@@ -13,6 +13,17 @@ const Navbar = () => {
   // 로딩 중일 때 아무것도 렌더링하지 않음
   // isFetching까지 고려해 미세한 깜빡임 방지
   if (isLoading || isFetching) return null;
+
+  const getFallbackImage = (email?: string): string | null => {
+    if (!email) return null;
+    if (email === "heyannawp@gmail.com") return "/images/profile-anna.png";
+    if (email === "tallshe1008@gmail.com") return "/images/profile-coalnu.jpg";
+    return "/images/profile-default.png";
+  };
+
+  const profileImgSrc =
+    userProfile?.images?.[0]?.url || getFallbackImage(userProfile?.email);
+
   return (
     <Box
       display="flex"
@@ -47,9 +58,9 @@ const Navbar = () => {
             justifyContent="center"
             alignItems="center"
           >
-            {userProfile.images?.[0]?.url ? (
+            {profileImgSrc ? (
               <img
-                src={userProfile.images[0].url}
+                src={profileImgSrc}
                 alt="프로필 이미지"
                 style={{
                   width: "100%",
@@ -62,7 +73,6 @@ const Navbar = () => {
                 sx={{
                   width: "118.5%",
                   height: "118.5%",
-                  // fontSize: "100%",
                   color: "#718096",
                 }}
               />
@@ -72,7 +82,6 @@ const Navbar = () => {
       ) : (
         <LoginButton />
       )}
-      <img src="/images/profile-default.png" alt="기본 프로필" />
     </Box>
   );
 };
