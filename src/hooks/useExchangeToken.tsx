@@ -18,6 +18,7 @@ const useExchangeToken = () => {
     // 성공한 데이터 받았을 때 진행할 작업
     onSuccess: async (data) => {
       localStorage.setItem("access_token", data.access_token);
+      localStorage.setItem("token_created_at", Date.now().toString());
       localStorage.removeItem("code_verifier");
 
       // 이전 사용자 정보 무효화 : 캐시 무효화 코드 삭제
