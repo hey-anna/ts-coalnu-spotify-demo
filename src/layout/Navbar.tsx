@@ -20,10 +20,12 @@ const Navbar = () => {
   // 토큰 생성 시각 확인
   const createdAt = Number(localStorage.getItem("token_created_at"));
   const now = Date.now();
-  const isTokenStale = createdAt && now - createdAt >= 55 * 60 * 1000;
+  // const isTokenStale = createdAt && now - createdAt >= 55 * 60 * 1000;
+  const isTokenStale = Boolean(createdAt) && now - createdAt >= 55 * 60 * 1000;
+
   // const isTokenStale = createdAt && now - createdAt >= 10 * 1000; // 10초
 
-  console.log("isTokenStale", isTokenStale);
+  console.log("isTokenStale:", isTokenStale, typeof isTokenStale);
 
   const getFallbackImage = (email?: string): string | null => {
     if (!email) return null;
