@@ -19,15 +19,16 @@ const useExchangeToken = () => {
     onSuccess: async (data) => {
       localStorage.setItem("access_token", data.access_token);
       localStorage.removeItem("code_verifier");
-      // 직접 새 쿼리 실행해서 데이터 가져오기
+
+      // 이전 사용자 정보 무효화 : 캐시 무효화 코드 삭제
+      queryClient.invalidateQueries({
+        queryKey: ["current-user-profile"], // useGetCurrentUserProfile.ts // 쿼리 키값 무효화
+      });
+
+      // 강제로 새로 가져오기 : 직접 새 쿼리 실행해서 데이터 가져오기
       const profile = await getCurrentUserProfile();
       // 쿼리 캐시에 강제로 세팅
       queryClient.setQueryData(["current-user-profile"], profile);
-
-      // 캐시 무효화 코드 삭제
-      // queryClient.invalidateQueries({
-      //   queryKey: ["current-user-profile"], // useGetCurrentUserProfile.ts // 쿼리 키값 무효화
-      // });
     },
     onError: (error) => {
       console.error("Token exchange mutation error:", error);
