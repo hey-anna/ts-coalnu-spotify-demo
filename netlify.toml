@@ -6,6 +6,11 @@
   SECRETS_SCAN_ENABLED = "false"  # 시크릿 감지 끄기
 
 [[redirects]]
+  from = "/images/*"
+  to = "/images/:splat"
+  status = 200
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
