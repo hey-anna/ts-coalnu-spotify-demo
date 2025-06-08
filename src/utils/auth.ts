@@ -4,6 +4,10 @@ import { AuthUrlParams } from "../models/auth";
 import { base64encode, generateRandomString, sha256 } from "./crypto";
 
 export const getSpotifyAuthUrl = async () => {
+  // 기존 access token 제거 (다시 로그인하므로 초기화)
+  localStorage.removeItem("access_token");
+  localStorage.removeItem("token_created_at");
+
   const codeVerifier = generateRandomString(64);
   const hashed = await sha256(codeVerifier);
   const codeChallenge = base64encode(hashed);

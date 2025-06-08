@@ -1,7 +1,9 @@
 import { Box } from "@mui/material";
 import LoginButton from "../components/button/LoginButton";
 import useGetCurrentUserProfile from "../hooks/useGetCurrentUserProfile";
-import { AccountCircle } from "@mui/icons-material";
+import { AccountCircle, ArrowForward } from "@mui/icons-material";
+import { keyframes } from "@emotion/react";
+import { styled } from "@mui/material/styles";
 
 const Navbar = () => {
   const {
@@ -19,7 +21,7 @@ const Navbar = () => {
   const createdAt = Number(localStorage.getItem("token_created_at"));
   const now = Date.now();
   const isTokenStale = createdAt && now - createdAt >= 55 * 60 * 1000;
-  // const isTokenStale = createdAt && now - createdAt >= 20 * 1000; // 20초
+  // const isTokenStale = createdAt && now - createdAt >= 10 * 1000; // 10초
 
   console.log("isTokenStale", isTokenStale);
 
@@ -33,6 +35,28 @@ const Navbar = () => {
   const profileImgSrc =
     userProfile?.images?.[0]?.url || getFallbackImage(userProfile?.email);
 
+  // 바운스
+  const bounce = keyframes`
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+`;
+  // const BouncingArrow = styled(ArrowForward)`
+  //   animation: ${bounce} 1s infinite;
+  //   font-size: 18px;
+  //   color: #a0aec0;
+  // `;
+  const BouncingWrapper = styled("div")`
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    animation: ${bounce} 1s infinite;
+    color: #a0aec0;
+    font-size: 12px;
+  `;
   return (
     <Box
       display="flex"
@@ -44,7 +68,18 @@ const Navbar = () => {
       {isLoadingProfile ? (
         <Box width={48} height={24} /> // 스켈리톤으로 대응하려했으나, 조건분기 및 토큰만료 시간으로 처리 함
       ) : !userProfile || isTokenStale ? ( // 여기로 로그인 버튼 조건분기를 올기고, 토큰만료 전 화면표시
-        <LoginButton />
+        <Box display="flex" alignItems="flex-end" gap={1.5}>
+          {isTokenStale && (
+            <BouncingWrapper>
+              <span style={{ fontSize: 12, color: "#a0aec0", marginTop: 4 }}>
+                세션이 만료되었습니다. 다시 로그인해주세요.
+              </span>
+              <ArrowForward sx={{ fontSize: 16 }} />
+            </BouncingWrapper>
+          )}
+          {/* <BouncingArrow /> */}
+          <LoginButton />
+        </Box>
       ) : (
         <Box
           display="flex"
