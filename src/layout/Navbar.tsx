@@ -23,68 +23,55 @@ const Navbar = () => {
     >
       {userProfile ? (
         <Box
-          width={48}
-          height={48}
-          borderRadius="50%"
-          overflow="hidden"
-          bgcolor="#e2e8f0"
           display="flex"
-          justifyContent="center"
+          // flexDirection="column"
           alignItems="center"
+          justifyContent="flex-end"
+          gap={1.2}
         >
-          {/* <img
-            src={userProfile.images?.[0]?.url || "/images/profile-default.png"}
-            alt="프로필 이미지"
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-            }}
-          /> */}
-          {userProfile.images?.[0]?.url ? (
-            <img
-              src={userProfile.images[0].url}
-              alt="프로필 이미지"
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-              }}
-            />
-          ) : (
-            <AccountCircle
-              sx={{
-                width: "119%",
-                height: "119%",
-                // fontSize: "100%",
-                color: "#718096",
-              }}
-            />
-          )}
+          <Box>
+            <span style={{ fontSize: 18 }}>
+              You're logged in as{" "}
+              <span style={{ color: "#77d36f", fontWeight: 600 }}>
+                {userProfile.display_name}
+              </span>
+            </span>
+          </Box>
+          <Box
+            width={48}
+            height={48}
+            borderRadius="50%"
+            overflow="hidden"
+            bgcolor="#e2e8f0"
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+          >
+            {userProfile.images?.[0]?.url ? (
+              <img
+                src={userProfile.images[0].url}
+                alt="프로필 이미지"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                }}
+              />
+            ) : (
+              <AccountCircle
+                sx={{
+                  width: "118.5%",
+                  height: "118.5%",
+                  // fontSize: "100%",
+                  color: "#718096",
+                }}
+              />
+            )}
+          </Box>
         </Box>
       ) : (
         <LoginButton />
       )}
-      {/* {userProfile ? (
-        <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center">
-          {userProfile.images[0]?.url ? (
-            <img
-              src={userProfile.images[0].url}
-              alt="프로필 이미지"
-              className="w-full h-full object-cover"
-            />
-          ) : (
-            <img
-              src="/images/profile-default.png"
-              alt="기본 프로필"
-              className="w-full h-full object-cover"
-            />
-            // <AccountCircle fontSize="large" className="text-gray-500" />
-          )}
-        </div>
-      ) : (
-        <LoginButton />
-      )} */}
     </Box>
   );
 };
