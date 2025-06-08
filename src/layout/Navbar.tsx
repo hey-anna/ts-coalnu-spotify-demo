@@ -18,7 +18,7 @@ const Navbar = () => {
     if (!email) return null;
     if (email === "heyannawp@gmail.com") return "/images/profile-anna.png";
     if (email === "tallshe1008@gmail.com") return "/images/profile-coalnu.jpg";
-    return "/images/profile-default.png";
+    return null;
   };
 
   const profileImgSrc =
