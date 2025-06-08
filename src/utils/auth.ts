@@ -1,4 +1,4 @@
-import { CLIENT_ID } from "../configs/authConfig";
+import { CLIENT_ID, SCOPES } from "../configs/authConfig";
 import { REDIRECT_URI_LOCAL, REDIRECT_URI_PROD } from "../configs/commonConfig";
 import { AuthUrlParams } from "../models/auth";
 import { base64encode, generateRandomString, sha256 } from "./crypto";
@@ -15,7 +15,7 @@ export const getSpotifyAuthUrl = async () => {
       : //   ? `${window.location.origin}/callback` // 포트번호 상관없이 처리, 혹 오류 시 REDIRECT_URI_LOCAL,
         REDIRECT_URI_PROD!;
 
-  const scope = "user-read-private user-read-email"; // api 호출할 때마다 필요한 허가
+  const scope = SCOPES; // api 호출할 때마다 필요한 허가
   const authUrl = new URL("https://accounts.spotify.com/authorize");
 
   // generated in the previous step

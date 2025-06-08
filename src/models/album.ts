@@ -1,17 +1,23 @@
+import { ApiResponse } from "./apiResponse";
 import { Artists } from "./artists";
 import { ExternalUrls, Images, Restrictions } from "./commonType";
 
 export interface GetNewReleasesResponse {
-  albums: {
-    href: string;
-    limit: number;
-    next: string | null;
-    offset: number;
-    previous: string | null;
-    total: number;
-    items: SimplifiedAlbum[];
-  };
+  albums: ApiResponse<SimplifiedAlbum>;
 }
+
+// 얘네를 묶어서 타입화 - 템플릿화
+// export interface GetNewReleasesResponse {
+//   albums: {
+//     href: string;
+//     limit: number;
+//     next: string | null;
+//     offset: number;
+//     previous: string | null;
+//     total: number;
+//     items: SimplifiedAlbum[];
+//   };
+// }
 
 export interface SimplifiedAlbum {
   album_type: string;

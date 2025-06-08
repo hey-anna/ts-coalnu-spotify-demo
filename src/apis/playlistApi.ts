@@ -1,0 +1,28 @@
+import {
+  GetCurrentUserPlaylistRequest,
+  GetCurrentUserPlaylistResponse,
+} from "../models/playlist";
+import authApiInstance from "../utils/api/authApiInstance";
+
+export const getCurrentUserPlaylists = async ({
+  limit,
+  offset,
+}: GetCurrentUserPlaylistRequest): Promise<GetCurrentUserPlaylistResponse> => {
+  try {
+    const response = await authApiInstance.get(`/me/playlists`, {
+      params: { limit, offset },
+    }); // 호출하려면 Authorization scopes가 - playlist-read-private가 있어야 한다
+    // 이렇게 데이터가 오면
+    return response.data;
+  } catch (error) {
+    throw new Error("fail to fetch current user playlists");
+  }
+};
+
+// limit, offset 을 가져오겠다 - 매개변수로 받는다는 것은
+// useGetCurrentUserPlaylists 에 함수 호출할때 에 이미 limit, offset을 보내줘야 우리가 받을 수 있겠다.
+// 당연히, 매개변수 생겨서 뭘 요구 하냐? 타입 정의 해주셈
+
+// limit, offset, 파람스 값이 있으니깐, 같이 넣어서 보내줘야 한다
+
+// async 는 리턴 타입 이 있다
