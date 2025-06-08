@@ -72,6 +72,7 @@ const Navbar = () => {
       ) : (
         <LoginButton />
       )}
+      <img src="/images/profile-default.png" alt="기본 프로필" />
     </Box>
   );
 };
