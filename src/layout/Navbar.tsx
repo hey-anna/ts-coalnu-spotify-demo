@@ -22,8 +22,7 @@ const Navbar = () => {
   const now = Date.now();
   // const isTokenStale = createdAt && now - createdAt >= 55 * 60 * 1000;
   const isTokenStale = Boolean(createdAt) && now - createdAt >= 55 * 60 * 1000;
-
-  // const isTokenStale = createdAt && now - createdAt >= 10 * 1000; // 10초
+  // const isTokenStale = Boolean(createdAt) && now - createdAt >= 10 * 1000; // 10초
 
   console.log("isTokenStale:", isTokenStale, typeof isTokenStale);
 

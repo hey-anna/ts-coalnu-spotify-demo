@@ -16,13 +16,19 @@ const Layout = styled("div")({
 
 // mui 나 우리가 정한 theme 값 가져오기
 const Sidebar = styled("div")(({ theme }) => ({
-  width: "331px",
+  width: "100%",
+  maxWidth: 397,
   height: "100%",
   display: "flex",
   flexDirection: "column",
-  gap: "10px",
+  gap: "8px",
+  overflow: "hidden",
+  transition: "width 0.3s ease",
+  [theme.breakpoints.down("md")]: {
+    width: 88, // 축소형 사이드바
+  },
   [theme.breakpoints.down("sm")]: {
-    display: "none",
+    display: "none", // 모바일에서는 숨김
   },
 }));
 
@@ -38,14 +44,20 @@ const ContentBox = styled(Box)(({ theme }) => ({
   // gap: "10px",
 }));
 
-const NavList = styled("ul")({
+const NavList = styled("ul")(({ theme }) => ({
   listStyle: "none",
   padding: "16px",
   margin: 0,
   display: "flex",
   flexDirection: "column",
   gap: "16px",
-});
+  transition: "width 0.3s ease",
+  [theme.breakpoints.down("md")]: {
+    gap: "20px",
+    paddingTop: "12px",
+    paddingBottom: "12px",
+  },
+}));
 
 const StyledRouterLink = styled(NavLink)({
   textDecoration: "none",
@@ -75,8 +87,16 @@ const AppLayout = () => {
               <StyledRouterLink to="/" end>
                 {({ isActive }: { isActive: boolean }) => (
                   <NavItem isActive={isActive}>
-                    <Home />
-                    <Typography variant="h2" fontWeight={700}>
+                    <Home
+                      sx={{
+                        fontSize: { xs: "1.75rem", md: "1.5rem" },
+                      }}
+                    />
+                    <Typography
+                      variant="h2"
+                      fontWeight={700}
+                      sx={{ display: { xs: "none", md: "block" } }}
+                    >
                       Home
                     </Typography>
                   </NavItem>
@@ -87,8 +107,16 @@ const AppLayout = () => {
               <StyledRouterLink to="/search">
                 {({ isActive }: { isActive: boolean }) => (
                   <NavItem isActive={isActive}>
-                    <Search />
-                    <Typography variant="h2" fontWeight={700}>
+                    <Search
+                      sx={{
+                        fontSize: { xs: "1.75rem", md: "1.5rem" },
+                      }}
+                    />
+                    <Typography
+                      variant="h2"
+                      fontWeight={700}
+                      sx={{ display: { xs: "none", md: "block" } }}
+                    >
                       Search
                     </Typography>
                   </NavItem>
