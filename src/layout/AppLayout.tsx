@@ -16,7 +16,6 @@ const Layout = styled("div")({
 
 // mui 나 우리가 정한 theme 값 가져오기
 const Sidebar = styled("div")(({ theme }) => ({
-  width: "100%",
   maxWidth: 397,
   height: "100%", // ** 스크롤 필수
   display: "flex",
@@ -126,10 +125,7 @@ const AppLayout = () => {
           </NavList>
         </ContentBox>
         {/* === 라이브러리 영역 (Your Library + 플레이리스트) === */}
-        <ContentBox
-          height="100%"
-          sx={{ flexGrow: 1, overflow: "hidden", display: "flex" }}
-        >
+        <ContentBox height="100%" sx={{ flexGrow: 1, overflow: "hidden" }}>
           <Library />
         </ContentBox>
       </Sidebar>
