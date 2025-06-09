@@ -6,6 +6,8 @@ import useGetCurrentUserPlaylists from "../hooks/useGetCurrentUserPlaylists";
 import { useEffect, useState } from "react";
 import PlaylistList from "./sidebar/PlaylistList";
 import useGetCurrentUserProfile from "../hooks/useGetCurrentUserProfile";
+import { useInView } from "react-intersection-observer";
+import CommonSpinner from "../components/spinner/CommonSpinner";
 
 const LibraryContainer = styled(Box)(({ theme }) => ({
   // backgroundColor: theme.palette.background.paper,
@@ -23,13 +25,14 @@ const LibraryContainer = styled(Box)(({ theme }) => ({
 }));
 
 const ScrollArea = styled(Box)(({ theme }) => ({
-  background: "rgba(255, 0, 0, 0.1)",
+  // background: "rgba(255, 0, 0, 0.1)",
   flexGrow: 1, // ** 스크롤 필수
   overflowY: "auto", // ** 스크롤 필수
   paddingRight: "4px",
   minHeight: 0, // ** flex item scroll 시 필수
   "&::-webkit-scrollbar": {
-    width: "6px",
+    // width: "6px",
+    display: "none",
   },
   "&::-webkit-scrollbar-thumb": {
     backgroundColor: theme.palette.grey[700],
@@ -38,10 +41,26 @@ const ScrollArea = styled(Box)(({ theme }) => ({
 }));
 
 const Library = () => {
-  const { data: playlist, isLoading } = useGetCurrentUserPlaylists({
+  const { ref, inView } = useInView();
+
+  // 다음 함수 페칭할 수 있는 함수도 제공하는 친구
+  const {
+    data: playlist,
+    isLoading,
+    hasNextPage, // 다음페이지 있어?
+    isFetchingNextPage, // 다음 페이지 부르는 중이야? (다음 데이터 불러오는 중인데, 데이터 가져오면 안되니깐, 재호출 하면 안됨)
+    fetchNextPage, // next page 호출하는 함수
+  } = useGetCurrentUserPlaylists({
     limit: 30,
     offset: 0,
   });
+
+  useEffect(() => {
+    if (inView && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage(); // fetchNextPage 함수는 자동으로 호출, offset을 바꿔서 10, 20
+    }
+  }, [inView]);
+
   console.log("data : useGetCurrentUserPlaylists", playlist);
   console.log({ aaa: playlist });
 
@@ -61,12 +80,7 @@ const Library = () => {
         ) : (
           <PlaylistList playlists={playlists} />
         )}
-
-        {/* {playlists.length > 0 ? (
-          <PlaylistList playlists={playlists} />
-        ) : (
-          <EmptyPlaylist />
-        )} */}
+        <div ref={ref}>{isFetchingNextPage && <CommonSpinner />}</div>
       </ScrollArea>
     </LibraryContainer>
   );
