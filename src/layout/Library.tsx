@@ -11,6 +11,8 @@ import CommonSpinner from "../components/spinner/CommonSpinner";
 
 const LibraryContainer = styled(Box)(({ theme }) => ({
   // backgroundColor: theme.palette.background.paper,
+  // minWidth: 374,
+  // width: "100%",
   padding: "12px",
   borderRadius: "8px",
   display: "flex",

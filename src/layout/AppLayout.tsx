@@ -16,14 +16,31 @@ const Layout = styled("div")({
 
 // mui 나 우리가 정한 theme 값 가져오기
 const Sidebar = styled("div")(({ theme }) => ({
-  maxWidth: 397,
+  maxWidth: 374,
+  width: "100%",
   height: "100%", // ** 스크롤 필수
   display: "flex",
   flexDirection: "column", // ** 스크롤 필수
   gap: "8px",
   overflow: "hidden", // ** 스크롤 필수
   transition: "width 0.3s ease",
-  [theme.breakpoints.down("md")]: {
+  // xl 이상: 더 넓게
+  [theme.breakpoints.up("xl")]: {
+    maxWidth: 397,
+  },
+
+  // lg ~ xl
+  [theme.breakpoints.between("lg", "xl")]: {
+    maxWidth: 374,
+  },
+
+  // md ~ lg
+  [theme.breakpoints.between("md", "lg")]: {
+    maxWidth: 320,
+  },
+
+  // sm ~ md
+  [theme.breakpoints.between("sm", "md")]: {
     width: 88, // 축소형 사이드바
   },
   [theme.breakpoints.down("sm")]: {
