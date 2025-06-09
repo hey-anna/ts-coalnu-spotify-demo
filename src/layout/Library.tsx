@@ -5,6 +5,7 @@ import EmptyPlaylist from "./sidebar/EmptyPlaylist";
 import useGetCurrentUserPlaylists from "../hooks/useGetCurrentUserPlaylists";
 import { useEffect, useState } from "react";
 import PlaylistList from "./sidebar/PlaylistList";
+import useGetCurrentUserProfile from "../hooks/useGetCurrentUserProfile";
 
 const LibraryContainer = styled(Box)(({ theme }) => ({
   // backgroundColor: theme.palette.background.paper,
@@ -42,21 +43,30 @@ const Library = () => {
     offset: 0,
   });
   console.log("data : useGetCurrentUserPlaylists", playlist);
-  console.log({ ddd: playlist });
+  console.log({ aaa: playlist });
 
-  if (isLoading) return <div>로딩 중...</div>; // 스켈리톤 추가해야댐
+  // if (isLoading) return <div>로딩 중...</div>; // 스켈리톤 추가해야댐
 
-  const playlists = playlist?.items ?? []; // 진짜 우리가 쓰는 배열
+  const { data: user } = useGetCurrentUserProfile();
+  if (!user) return <EmptyPlaylist />;
 
+  // const playlists = playlist?.items ?? []; // 진짜 우리가 쓰는 배열
+  const playlists = playlist?.pages.flatMap((page) => page.items) ?? [];
   return (
     <LibraryContainer>
       <LibraryHead />
       <ScrollArea>
-        {playlists.length > 0 ? (
+        {!playlist || playlist?.pages[0].total === 0 ? (
+          <EmptyPlaylist />
+        ) : (
+          <PlaylistList playlists={playlists} />
+        )}
+
+        {/* {playlists.length > 0 ? (
           <PlaylistList playlists={playlists} />
         ) : (
           <EmptyPlaylist />
-        )}
+        )} */}
       </ScrollArea>
     </LibraryContainer>
   );
