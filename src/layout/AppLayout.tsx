@@ -18,11 +18,11 @@ const Layout = styled("div")({
 const Sidebar = styled("div")(({ theme }) => ({
   width: "100%",
   maxWidth: 397,
-  height: "100%",
+  height: "100%", // ** 스크롤 필수
   display: "flex",
-  flexDirection: "column",
+  flexDirection: "column", // ** 스크롤 필수
   gap: "8px",
-  overflow: "hidden",
+  overflow: "hidden", // ** 스크롤 필수
   transition: "width 0.3s ease",
   [theme.breakpoints.down("md")]: {
     width: 88, // 축소형 사이드바
@@ -126,7 +126,10 @@ const AppLayout = () => {
           </NavList>
         </ContentBox>
         {/* === 라이브러리 영역 (Your Library + 플레이리스트) === */}
-        <ContentBox height="100%">
+        <ContentBox
+          height="100%"
+          sx={{ flexGrow: 1, overflow: "hidden", display: "flex" }}
+        >
           <Library />
         </ContentBox>
       </Sidebar>

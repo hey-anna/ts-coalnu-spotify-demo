@@ -13,24 +13,32 @@ const LibraryContainer = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   gap: "16px",
-  height: "100%",
-  // width: "100%",
-  // maxWidth: "400px", // 또는 "100%" / "30vw" 등 원하는 크기
-  // width: 349,
-  // transition: "width 0.3s ease",
-  // overflow: "hidden",
-  // height: "100vh",
+  flexGrow: 1,
+  height: "100%", // ** 스크롤 필수
+  overflow: "hidden", // 전체 레이아웃 기준
   [theme.breakpoints.down("md")]: {
     padding: "8px",
   },
-  // [theme.breakpoints.down("sm")]: {
-  //   display: "none", // 모바일에서는 숨김
-  // },
+}));
+
+const ScrollArea = styled(Box)(({ theme }) => ({
+  background: "rgba(255, 0, 0, 0.1)",
+  flexGrow: 1, // ** 스크롤 필수
+  overflowY: "auto", // ** 스크롤 필수
+  paddingRight: "4px",
+  minHeight: 0, // ** flex item scroll 시 필수
+  "&::-webkit-scrollbar": {
+    width: "6px",
+  },
+  "&::-webkit-scrollbar-thumb": {
+    backgroundColor: theme.palette.grey[700],
+    borderRadius: "4px",
+  },
 }));
 
 const Library = () => {
   const { data: playlist, isLoading } = useGetCurrentUserPlaylists({
-    limit: 10,
+    limit: 30,
     offset: 0,
   });
   console.log("data : useGetCurrentUserPlaylists", playlist);
@@ -43,11 +51,13 @@ const Library = () => {
   return (
     <LibraryContainer>
       <LibraryHead />
-      {playlists.length > 0 ? (
-        <PlaylistList playlists={playlists} />
-      ) : (
-        <EmptyPlaylist />
-      )}
+      <ScrollArea>
+        {playlists.length > 0 ? (
+          <PlaylistList playlists={playlists} />
+        ) : (
+          <EmptyPlaylist />
+        )}
+      </ScrollArea>
     </LibraryContainer>
   );
 };

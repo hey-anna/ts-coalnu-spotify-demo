@@ -8,7 +8,7 @@ interface PlaylistListProps {
 
 const PlaylistList = ({ playlists }: PlaylistListProps) => {
   return (
-    <Box>
+    <>
       {playlists.map((playlist, idx) => (
         <PlaylistItem
           key={idx}
@@ -17,7 +17,7 @@ const PlaylistList = ({ playlists }: PlaylistListProps) => {
           ownerName={playlist.owner?.display_name || "Unknown"}
         />
       ))}
-    </Box>
+    </>
   );
 };
 
