@@ -14,9 +14,11 @@ const PlaylistBox = styled(Box)({
 });
 
 interface PlaylistItemProps {
-  imageUrl: string;
+  imageUrl: string | null;
   name: string;
-  ownerName: string;
+  ownerName: string | null;
+  id: string;
+  handleClick: (id: string) => void; // 리턴값 없으니 void이다
 }
 
 const TextBox = styled(Box)({
@@ -26,12 +28,18 @@ const TextBox = styled(Box)({
   overflow: "hidden",
 });
 
-const PlaylistItem = ({ imageUrl, name, ownerName }: PlaylistItemProps) => {
+const PlaylistItem = ({
+  imageUrl,
+  name,
+  ownerName,
+  id,
+  handleClick,
+}: PlaylistItemProps) => {
   return (
-    <PlaylistBox>
+    <PlaylistBox onClick={() => handleClick(id)}>
       <Avatar
         variant="square"
-        src={imageUrl}
+        src={imageUrl ? imageUrl : "no image"}
         sx={{ width: 46, height: 46, borderRadius: 0.5 }}
       />
       <TextBox>
