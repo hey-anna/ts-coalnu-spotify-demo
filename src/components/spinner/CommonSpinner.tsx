@@ -1,4 +1,4 @@
-import BounceLoader from "react-spinners/BounceLoader";
+import ScaleLoader from "react-spinners/ScaleLoader";
 
 interface SpinnerProps {
   message?: string;
@@ -9,7 +9,7 @@ export default function CommonSpinner({
 }: SpinnerProps) {
   return (
     <div className="flex flex-col justify-center items-center h-screen">
-      <BounceLoader size={80} color="#3ecdf4" />
+      <ScaleLoader height={60} width={6} color="#3ecdf4" />
       <p className="mt-4 text-lg font-semibold text-sky-600">{message}</p>
     </div>
   );
