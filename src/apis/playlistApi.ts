@@ -1,6 +1,9 @@
+import useGetplaylist from "../hooks/useGetplaylist";
 import {
   GetCurrentUserPlaylistRequest,
   GetCurrentUserPlaylistResponse,
+  GetPlaylistRequest,
+  Playlist,
 } from "../models/playlist";
 import authApiInstance from "../utils/api/authApiInstance";
 
@@ -26,3 +29,19 @@ export const getCurrentUserPlaylists = async ({
 // limit, offset, 파람스 값이 있으니깐, 같이 넣어서 보내줘야 한다
 
 // async 는 리턴 타입 이 있다
+
+export const getPlaylist = async (
+  params: GetPlaylistRequest,
+): Promise<Playlist> => {
+  try {
+    const response = await authApiInstance.get(
+      `/playlists/${params.playlist_id}`,
+      {
+        params, // 기타 파라미터 값 market, fields, additional_types
+      },
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error("fail to fetch playlist detail");
+  }
+};
