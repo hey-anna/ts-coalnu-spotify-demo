@@ -64,6 +64,18 @@ const TestLoginModal = ({ open }: { open: boolean }) => {
           ※ 체험용 계정은 공유 목적이며, 정보 변경이나 유료 결제는 금지되어
           있습니다.
         </Typography>
+        <Typography
+          variant="body2"
+          sx={{
+            mt: 2,
+            color: "error.main",
+            fontWeight: 500,
+            textAlign: "center",
+          }}
+        >
+          현재 Spotify API 요청 제한으로 약{" "}
+          <Highlight>6월 12일 오전 4시 9분</Highlight> 이후 이용 가능합니다.
+        </Typography>
       </DialogContent>
 
       <DialogActions sx={{ justifyContent: "center", pb: 2 }}>
