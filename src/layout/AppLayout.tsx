@@ -155,7 +155,16 @@ const AppLayout = () => {
         </ContentBox>
       </Sidebar>
       {/* === 컨텐츠 영역 === */}
-      <ContentBox>
+      <ContentBox
+        sx={{
+          overflowX: "auto",
+          scrollbarWidth: "none", // Firefox
+          "&::-webkit-scrollbar": {
+            display: "none", // Chrome, Safari
+          },
+          // paddingBottom: "24px",
+        }}
+      >
         <Navbar />
         <Outlet />
       </ContentBox>

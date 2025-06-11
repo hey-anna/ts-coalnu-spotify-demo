@@ -91,8 +91,31 @@ const PlaylistHeader: React.FC<PlaylistHeaderProps> = ({
       {imageUrl && <BackgroundImage src={imageUrl} alt="background" />}
 
       {/* 아바타 */}
-      {/* <PlaylistAvatar variant="square" src={imageUrl} /> */}
       {imageUrl ? (
+        <PlaylistAvatar variant="square" src={imageUrl} />
+      ) : (
+        <Box
+          sx={(theme) => ({
+            width: 224,
+            height: 224,
+            // background: "linear-gradient(to bottom, #f1e4e8, #a79a9f)",
+            background: "linear-gradient(to top, #f1e4e8, #a79a9f)",
+            borderRadius: 2,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexShrink: 0,
+            [theme.breakpoints.down("md")]: {
+              width: 160,
+              height: 160,
+            },
+          })}
+        >
+          <MusicNote sx={{ fontSize: 64, color: "#3b3b3b" }} />
+        </Box>
+      )}
+
+      {/* {imageUrl ? (
         <img src={imageUrl} alt="playlist" />
       ) : (
         <Box
@@ -106,7 +129,7 @@ const PlaylistHeader: React.FC<PlaylistHeaderProps> = ({
         >
           <MusicNote sx={{ fontSize: 64, color: "#fff" }} />
         </Box>
-      )}
+      )} */}
 
       {/* 텍스트 */}
       <Stack spacing={1} zIndex={1}>
