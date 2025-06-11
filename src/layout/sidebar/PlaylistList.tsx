@@ -2,6 +2,7 @@ import { Box } from "@mui/material";
 import PlaylistItem from "./PlaylistItem";
 import { SimplifiedPlaylist } from "../../models/playlist";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 interface PlaylistListProps {
   playlists: SimplifiedPlaylist[];
@@ -9,7 +10,9 @@ interface PlaylistListProps {
 
 const PlaylistList = ({ playlists }: PlaylistListProps) => {
   const navigate = useNavigate();
+  const [selectedId, setSelectedId] = useState<string | null>(null);
   const handleClick = (id: string) => {
+    setSelectedId(id);
     navigate(`/playlist/${id}`);
   };
 
@@ -23,6 +26,7 @@ const PlaylistList = ({ playlists }: PlaylistListProps) => {
           name={playlist.name || "No name"}
           ownerName={playlist.owner?.display_name || "Unknown"}
           handleClick={handleClick}
+          selected={playlist.id === selectedId}
         />
       ))}
     </>

@@ -1,17 +1,20 @@
-// components/PlaylistItem.tsx
 import { Box, Typography, Avatar } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
-const PlaylistBox = styled(Box)({
+const PlaylistBox = styled(Box, {
+  shouldForwardProp: (prop) => prop !== "selected",
+})<{ selected?: boolean }>(({ selected, theme }) => ({
   display: "flex",
   alignItems: "center",
   gap: "16px",
-  padding: "8px 0",
+  padding: "8px 12px",
   cursor: "pointer",
+  borderRadius: 4,
+  backgroundColor: selected ? "rgba(119, 211, 111, 0.3)" : "transparent",
   "&:hover": {
-    opacity: 0.8,
+    backgroundColor: theme.palette.action.selected, // 항상 동일한 색으로 hover 처리
   },
-});
+}));
 
 interface PlaylistItemProps {
   imageUrl: string | null;
@@ -19,6 +22,7 @@ interface PlaylistItemProps {
   ownerName: string | null;
   id: string;
   handleClick: (id: string) => void; // 리턴값 없으니 void이다
+  selected?: boolean;
 }
 
 const TextBox = styled(Box)({
@@ -34,9 +38,10 @@ const PlaylistItem = ({
   ownerName,
   id,
   handleClick,
+  selected,
 }: PlaylistItemProps) => {
   return (
-    <PlaylistBox onClick={() => handleClick(id)}>
+    <PlaylistBox onClick={() => handleClick(id)} selected={selected}>
       <Avatar
         variant="square"
         src={imageUrl ? imageUrl : "no image"}
