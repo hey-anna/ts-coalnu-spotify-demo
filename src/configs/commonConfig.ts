@@ -3,3 +3,4 @@ export const REDIRECT_URI_LOCAL =
   process.env.REACT_APP_SPOTIFY_REDIRECT_URI_LOCAL;
 export const REDIRECT_URI_PROD =
   process.env.REACT_APP_SPOTIFY_REDIRECT_URI_PROD;
+export const PAGE_LIMIT = 10;

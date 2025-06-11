@@ -8,6 +8,7 @@ import PlaylistList from "./sidebar/PlaylistList";
 import useGetCurrentUserProfile from "../hooks/useGetCurrentUserProfile";
 import { useInView } from "react-intersection-observer";
 import CommonSpinner from "../components/spinner/CommonSpinner";
+import { PAGE_LIMIT } from "../configs/commonConfig";
 
 const LibraryContainer = styled(Box)(({ theme }) => ({
   // backgroundColor: theme.palette.background.paper,
@@ -53,7 +54,7 @@ const Library = () => {
     isFetchingNextPage, // 다음 페이지 부르는 중이야? (다음 데이터 불러오는 중인데, 데이터 가져오면 안되니깐, 재호출 하면 안됨)
     fetchNextPage, // next page 호출하는 함수
   } = useGetCurrentUserPlaylists({
-    limit: 10,
+    limit: PAGE_LIMIT,
     offset: 0,
   });
 
