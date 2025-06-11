@@ -1,6 +1,6 @@
 import { Navigate, useParams } from "react-router-dom";
 import useGetplaylist from "../../hooks/useGetplaylist";
-import PlaylistHeader from "../../layout/playlistLayout/playlistHeader";
+import PlaylistHeader from "../../layout/playlistLayout/PlaylistHeader";
 import { Box } from "@mui/material";
 
 const PlaylistDetailPage = () => {
