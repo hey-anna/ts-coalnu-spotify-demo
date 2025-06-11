@@ -1,6 +1,6 @@
 import { Grid, Typography } from "@mui/material";
 import useGetNewReleases from "../../hooks/useGetNewReleases";
-import Spinner from "../../components/spinner/CommonSpinner";
+import CommonSpinner from "../../components/spinner/CommonSpinner";
 import ErrorMessage from "../../components/Alert/ErrorMessage";
 import BasicCard from "../../components/card/BasicCard";
 
@@ -8,7 +8,7 @@ const NewReleases = () => {
   const { data, error, isLoading } = useGetNewReleases();
   console.log("데이터 확인", data);
   if (isLoading) {
-    return <Spinner />;
+    return <CommonSpinner />;
   }
   if (error) {
     return <ErrorMessage errorMessage={error.message} />;

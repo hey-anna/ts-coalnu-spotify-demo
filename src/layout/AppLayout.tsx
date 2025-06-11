@@ -6,6 +6,7 @@ import { Home, Search } from "@mui/icons-material";
 import { NavLink } from "react-router-dom";
 import Library from "./Library";
 import Navbar from "./Navbar";
+import TestLoginModal from "../components/modal/TestLoginModal";
 
 const Layout = styled("div")({
   display: "flex",
@@ -92,6 +93,13 @@ const NavItem = styled("div")<{ isActive?: boolean }>(
   }),
 );
 
+// if (isLoadingProfile) {
+//   return <CommonSpinner />;
+// }
+
+const accessToken = localStorage.getItem("access_token");
+const shouldShowLoginModal = !accessToken; // 토큰 없고, 로딩 끝났을 때만
+
 const AppLayout = () => {
   return (
     <Layout>
@@ -151,6 +159,7 @@ const AppLayout = () => {
         <Navbar />
         <Outlet />
       </ContentBox>
+      <TestLoginModal open={shouldShowLoginModal} />
     </Layout>
   );
 };
