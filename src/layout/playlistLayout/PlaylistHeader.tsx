@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Typography, Avatar, Stack, styled } from "@mui/material";
+import { MusicNote } from "@mui/icons-material";
 
 interface PlaylistHeaderProps {
   imageUrl?: string;
@@ -7,25 +8,31 @@ interface PlaylistHeaderProps {
   ownerName: string;
   totalTracks: number;
 }
-const HeaderContainer = styled(Box)(({ theme }) => ({
-  position: "relative",
-  width: "100%",
-  minHeight: 320,
-  display: "flex",
-  flexDirection: "row",
-  alignItems: "flex-end",
-  padding: theme.spacing(5),
-  gap: theme.spacing(4),
-  color: "white",
-  background: "linear-gradient(to bottom, #2a2a2a, #000000)",
-  overflow: "hidden",
+const HeaderContainer = styled(Box)<{ hasImage?: boolean }>(
+  ({ theme, hasImage }) => ({
+    position: "relative",
+    width: "100%",
+    minHeight: 320,
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "flex-end",
+    padding: theme.spacing(5),
+    gap: theme.spacing(4),
+    color: "white",
+    // background: "linear-gradient(to bottom, #2a2a2a, #000000)",
+    background: hasImage
+      ? "linear-gradient(to bottom, #2a2a2a, #000000)" // 이미지 있을 때
+      : "linear-gradient(to bottom, #f1e4e8, #a79a9f)", // 이미지 없을 때 밝은 그라데이션
 
-  [theme.breakpoints.down("md")]: {
-    flexDirection: "column",
-    alignItems: "center",
-    textAlign: "center",
-  },
-}));
+    overflow: "hidden",
+
+    [theme.breakpoints.down("md")]: {
+      flexDirection: "column",
+      alignItems: "center",
+      textAlign: "center",
+    },
+  }),
+);
 
 const BackgroundImage = styled("img")(() => ({
   position: "absolute",
@@ -79,12 +86,27 @@ const PlaylistHeader: React.FC<PlaylistHeaderProps> = ({
   totalTracks,
 }) => {
   return (
-    <HeaderContainer>
+    <HeaderContainer hasImage={!!imageUrl}>
       {/* 배경 이미지 */}
       {imageUrl && <BackgroundImage src={imageUrl} alt="background" />}
 
       {/* 아바타 */}
-      <PlaylistAvatar variant="square" src={imageUrl} />
+      {/* <PlaylistAvatar variant="square" src={imageUrl} /> */}
+      {imageUrl ? (
+        <img src={imageUrl} alt="playlist" />
+      ) : (
+        <Box
+          sx={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <MusicNote sx={{ fontSize: 64, color: "#fff" }} />
+        </Box>
+      )}
 
       {/* 텍스트 */}
       <Stack spacing={1} zIndex={1}>
