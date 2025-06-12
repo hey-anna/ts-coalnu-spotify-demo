@@ -61,10 +61,58 @@ const TestLoginModal = ({ open }: { open: boolean }) => {
           color="text.secondary"
           sx={{ mt: 2, display: "block", textAlign: "center" }}
         >
-          ※ 체험용 계정은 공유 목적이며, 정보 변경이나 유료 결제는 금지되어
-          있습니다.
+          {/* ※ 체험용 계정은 공유 목적이며, 정보 변경이나 유료 결제는 금지되어
+          있습니다. */}
+          ※ 본 계정은 면접 및 회사 측 확인을 위한 포트폴리오용 테스트
+          계정입니다. 사용 후에는 꼭 로그아웃해주시고, 비밀번호는 복사하여
+          정확히 입력해주시길 부탁드립니다.
         </Typography>
+        <Box
+          sx={{
+            borderTop: "1px dashed #ccc",
+            mt: 3,
+            mb: 2,
+            width: "100%",
+          }}
+        />
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          sx={{ mb: 1, mt: 2 }}
+        >
+          <Typography
+            variant="h6"
+            sx={{
+              color: "primary.main",
+              fontWeight: 700,
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
+            }}
+          >
+            ⚠️ 확인 부탁드립니다
+          </Typography>
+        </Box>
         <Typography
+          variant="body2"
+          sx={{
+            mt: 2,
+            // color: "info.main",
+            fontWeight: 500,
+            textAlign: "center",
+          }}
+        >
+          로그인 버튼이 처음 진입 시 보이지 않는 현상은 ✅ 확인하였습니다.
+          <br /> 현재 원인 🔎 파악 중이며,
+          <Highlight> 수정되는 대로 내용 반영</Highlight>드릴 수 있도록
+          하겠습니다. 스크롤 관련 이슈는 어제와 오늘 테스트 기준으로는{" "}
+          <Highlight>테스트 결과 스크롤은 정상적으로 작동하나, </Highlight>
+          전체적으로 조금 더 확인해보겠습니다. <br /> <br /> 👀 <br />
+          <br />
+        </Typography>
+
+        {/* <Typography
           variant="body2"
           sx={{
             mt: 2,
@@ -75,13 +123,13 @@ const TestLoginModal = ({ open }: { open: boolean }) => {
         >
           현재 Spotify API 요청 제한으로 약{" "}
           <Highlight>6월 12일 오전 4시 9분</Highlight> 이후 이용 가능합니다.
-        </Typography>
+        </Typography> */}
       </DialogContent>
 
       <DialogActions sx={{ justifyContent: "center", pb: 2 }}>
         <Button onClick={handleClose} variant="contained" color="primary">
-          {/* 확인하고 로그인할게요 */}
-          현재 Spotify API 요청 제한으로 정상 이용 불가
+          확인하고 로그인할게요
+          {/* 현재 Spotify API 요청 제한으로 정상 이용 불가 */}
         </Button>
       </DialogActions>
     </Dialog>

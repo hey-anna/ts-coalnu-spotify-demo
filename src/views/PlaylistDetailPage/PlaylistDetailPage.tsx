@@ -22,22 +22,25 @@ import CommonSpinner from "../../components/spinner/CommonSpinner";
 const PlaylistDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   if (!id) return <Navigate to="/" />; // 예외처리
+
   const {
     data: playlist,
     isLoading: isPlaylistLoading,
     error: playlistError,
   } = useGetplaylist({ playlist_id: id }); // 중요한게 파라미터 값을 넣어줘야 함
+
   const {
     data: playlistItems,
-    isLoading: isPlaylist,
-    error: playlistItemsLoading,
+    fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-    fetchNextPage,
-  } = useGetPlaylistItems({ playlist_id: id, limit: PAGE_LIMIT, offset: 0 });
+    isLoading: isPlaylist,
+    error: playlistItemsLoading,
+  } = useGetPlaylistItems({ playlist_id: id, limit: PAGE_LIMIT });
 
   const { ref, inView } = useInView();
   const pages = playlistItems?.pages ?? [];
+  const flatItems = playlistItems?.pages.flatMap((page) => page.items) ?? [];
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {
       fetchNextPage();
@@ -99,21 +102,21 @@ const PlaylistDetailPage = () => {
               <TableCell sx={stickyHeaderCellSx}>Duration</TableCell>
             </TableRow>
           </TableHead>
+
           <TableBody>
             {/* 넘버링 붙여주기 */}
-            {playlistItems?.pages.map((page, pageIndex) =>
-              page.items.map((item, itemIndex) => {
-                return (
-                  <DesktopPlaylistItem
-                    item={item}
-                    key={pageIndex * PAGE_LIMIT + itemIndex + 1}
-                    index={pageIndex * PAGE_LIMIT + itemIndex + 1}
-                    // pageIndex * PAGE_LIMIT 11 12
-                    // itemIndex(0) + 1
-                  />
-                );
-              }),
-            )}
+            {flatItems.map((item, itemIndex) => {
+              return (
+                <DesktopPlaylistItem
+                  item={item}
+                  key={itemIndex}
+                  // key={pageIndex * PAGE_LIMIT + itemIndex + 1}
+                  index={itemIndex + 1}
+                  // pageIndex * PAGE_LIMIT 11 12
+                  // itemIndex(0) + 1
+                />
+              );
+            })}
             <TableRow>
               <TableCell colSpan={5} ref={ref}>
                 {isFetchingNextPage && <CommonSpinner />}
