@@ -68,7 +68,7 @@ export interface GetPlaylistItemsRequest extends GetPlaylistRequest {
 
 export interface CreatePlaylistRequest {
   name: string;
-  public?: boolean;
+  playListPublic?: boolean; // public : Binding element 'public' implicitly has an 'any' type.
   collaborative?: boolean;
   description?: string;
 }

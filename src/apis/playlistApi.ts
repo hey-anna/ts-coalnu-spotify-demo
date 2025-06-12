@@ -70,9 +70,16 @@ export const createPlaylist = async (
   playlistData: CreatePlaylistRequest,
 ): Promise<Playlist> => {
   try {
+    const { name, playListPublic, collaborative, description } = playlistData;
     const response = await authApiInstance.post(
       `/users/${user_id}/playlists`,
-      playlistData,
+      // playlistData,
+      {
+        name,
+        public: playListPublic, // 보낼때는 public으로 보내줘야 한다
+        collaborative,
+        description,
+      },
     );
     return response.data;
   } catch (error) {
