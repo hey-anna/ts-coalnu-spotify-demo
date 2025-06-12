@@ -10,9 +10,9 @@ import type { AxiosError } from "axios";
 
 // 항상 실행하는게 아니라, enabled: accessToken 있을때 만 실행하게 변경
 const useGetCurrentUserProfile = (): UseQueryResult<User, AxiosError> => {
-  const accessToken = localStorage.getItem("access_token");
-  //   const accessToken =
-  //     typeof window !== "undefined" ? localStorage.getItem("access_token") : null;
+  // const accessToken = localStorage.getItem("access_token");
+  const accessToken =
+    typeof window !== "undefined" ? localStorage.getItem("access_token") : null;
   console.log("accessToken from localStorage", accessToken);
 
   return useQuery<User, AxiosError, User, [string]>({

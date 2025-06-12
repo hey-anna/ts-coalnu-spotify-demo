@@ -1,5 +1,6 @@
 import useGetplaylist from "../hooks/useGetplaylist";
 import {
+  CreatePlaylistRequest,
   GetCurrentUserPlaylistRequest,
   GetCurrentUserPlaylistResponse,
   GetPlaylistItemsRequest,
@@ -61,5 +62,20 @@ export const getPlaylistItems = async (
     return response.data;
   } catch (error) {
     throw new Error("fail to fetch playlist items ");
+  }
+};
+
+export const createPlaylist = async (
+  user_id: string,
+  playlistData: CreatePlaylistRequest,
+): Promise<Playlist> => {
+  try {
+    const response = await authApiInstance.post(
+      `/users/${user_id}/playlists`,
+      playlistData,
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error("fail to create playlist");
   }
 };

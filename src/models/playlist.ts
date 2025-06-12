@@ -37,7 +37,8 @@ export interface SimplifiedPlaylist extends BasePlaylist {
 }
 
 export interface Playlist extends BasePlaylist {
-  tracks?: ApiResponse<PlaylistTrack>;
+  tracks: ApiResponse<PlaylistTrack>;
+  // tracks?: ApiResponse<PlaylistTrack>;
 }
 
 export interface PlaylistTrack {
@@ -63,4 +64,11 @@ export interface GetPlaylistRequest {
 export interface GetPlaylistItemsRequest extends GetPlaylistRequest {
   limit?: number;
   offset?: number;
+}
+
+export interface CreatePlaylistRequest {
+  name: string;
+  public?: boolean;
+  collaborative?: boolean;
+  description?: string;
 }

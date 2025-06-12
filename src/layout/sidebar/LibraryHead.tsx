@@ -2,6 +2,7 @@
 import { Box, Button, Typography } from "@mui/material";
 import { alpha, styled } from "@mui/material/styles";
 import { Bookmark, Add } from "@mui/icons-material";
+import useCreatePlaylist from "../../hooks/useCreatePlaylist";
 
 const HeaderContainer = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -40,6 +41,11 @@ const AddButtonWrapper = styled(Box)(({ theme }) => ({
 }));
 
 const LibraryHead = () => {
+  const { mutate: createPlaylist } = useCreatePlaylist();
+  const handleCreatePlaylist = () => {
+    createPlaylist({ name: "My Play List" }); // name 필수값이라 name으로 테스트
+  };
+
   return (
     <HeaderContainer>
       <IconTextWrapper>
@@ -48,7 +54,7 @@ const LibraryHead = () => {
           Your Library
         </Typography>
       </IconTextWrapper>
-      <AddButtonWrapper>
+      <AddButtonWrapper onClick={handleCreatePlaylist}>
         <Add sx={{ color: "#77d36f" }} />
       </AddButtonWrapper>
     </HeaderContainer>
