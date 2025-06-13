@@ -1,11 +1,16 @@
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { getCurrentUserPlaylists } from "../apis/playlistApi";
 import { GetCurrentUserPlaylistRequest } from "../models/playlist";
+import useAuthStore from "../store/useAuthStore";
 
 const useGetCurrentUserPlaylists = ({
   limit,
   offset,
 }: GetCurrentUserPlaylistRequest) => {
+  const accessToken =
+    typeof window !== "undefined" ? localStorage.getItem("access_token") : null;
+  console.log("accessToken from localStorage", accessToken);
+  const isSessionValid = useAuthStore((s) => s.hasAccessToken);
   // 이 함수를 호출하는 순간에 받아 오겠다
   return useInfiniteQuery({
     queryKey: ["current-user-playlists"],
@@ -13,6 +18,9 @@ const useGetCurrentUserPlaylists = ({
       // initialPageParam 를 여기서 pageParam매개변수로 둔다
       return getCurrentUserPlaylists({ limit, offset: pageParam }); // limit, offset 어디서 받아올 것이냐 ?
     },
+    staleTime: 0,
+    enabled: !!accessToken,
+    // enabled: !!accessToken || isSessionValid, // 토큰 있을 때만 요청
     initialPageParam: 0, // 시작 벨류 설정(초기값 세팅)
     getNextPageParam: (lastPage) => {
       if (lastPage.next) {

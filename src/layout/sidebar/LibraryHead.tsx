@@ -21,9 +21,12 @@ const IconTextWrapper = styled(Box)(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   gap: "20px",
-  [theme.breakpoints.down("md")]: {
-    display: "none",
-  },
+  // [theme.breakpoints.down("md")]: {
+  //   display: "none",
+  // },
+  // [theme.breakpoints.down("sm")]: {
+  //   display: "none",
+  // },
 }));
 
 const AddButtonWrapper = styled(Box)(({ theme }) => ({

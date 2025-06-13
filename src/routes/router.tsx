@@ -18,6 +18,10 @@ const PlaylistPage = lazy(() => import("../views/PlaylistPage/PlaylistPage"));
 
 const CallbackPage = lazy(() => import("../views/CallbackPage/CallbackPage"));
 
+const LoginRequiredPage = lazy(
+  () => import("../views/LoginRequiredPage/LoginRequiredPage"),
+);
+
 // Suspense로 감싸는 helper
 const withSuspense = (Component: LazyExoticComponent<ComponentType<any>>) => (
   <Suspense fallback={<CommonSpinner />}>
@@ -56,5 +60,10 @@ export const router = createBrowserRouter([
         element: withSuspense(CallbackPage),
       },
     ],
+  },
+  // 로그인 요구 페이지 (AppLayout 미적용: AppLayout 없이 보여야 하니까 밖에!)
+  {
+    path: "/login-required",
+    element: withSuspense(LoginRequiredPage), // 반드시 lazy import 되어 있어야 함
   },
 ]);

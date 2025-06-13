@@ -5,6 +5,7 @@ const authApiInstance = axios.create({
   baseURL: SPOTIFY_BASE_URL,
 });
 
+// 요청 인터셉터: 매 요청마다 최신 토큰 세팅
 authApiInstance.interceptors.request.use((config) => {
   const token = localStorage.getItem("access_token");
   if (token) {
@@ -14,6 +15,34 @@ authApiInstance.interceptors.request.use((config) => {
   }
   return config;
 });
+
+// 응답 인터셉터: 401 에러 시 토큰 제거 + 로그인 페이지로 이동
+authApiInstance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    const status = error.response?.status;
+    const token = localStorage.getItem("access_token");
+
+    if (status === 401 && token) {
+      console.warn(
+        "401 - 토큰이 있지만 유효하지 않음. 로그인 페이지로 이동합니다.",
+      );
+
+      // 토큰 삭제(진짜 로그인한 사용자만 로그아웃 처리)
+      localStorage.removeItem("access_token");
+      localStorage.removeItem("token_created_at");
+
+      // 로그인 요구 페이지로 강제 이동
+      window.location.href = "/login-required";
+    } else if (status === 401 && !token) {
+      console.info("401 - 토큰 자체가 없음 (비로그인 상태). 이동하지 않음.");
+    }
+
+    return Promise.reject(error); // 반드시 다시 throw 해줘야 useQuery에서 에러 인식함
+  },
+);
+
+export default authApiInstance;
 
 // const authApiInstance = axios.create({
 //   baseURL: SPOTIFY_BASE_URL,
@@ -26,8 +55,6 @@ authApiInstance.interceptors.request.use((config) => {
 // null 인상태로 그대로 남아 있다 - 문제
 //   },
 // });
-
-export default authApiInstance;
 
 // authApiInstance.interceptors.requer // 안함
 // interceptors ?

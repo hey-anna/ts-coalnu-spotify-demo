@@ -3,6 +3,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { exchangeToken } from "../apis/authApi";
 import { ExchangeTokenResponse } from "../models/auth";
 import { getCurrentUserProfile } from "../apis/userApi";
+import { PAGE_LIMIT } from "../configs/commonConfig";
+import { getCurrentUserPlaylists } from "../apis/playlistApi";
 
 const useExchangeToken = () => {
   const queryClient = useQueryClient();
@@ -26,10 +28,25 @@ const useExchangeToken = () => {
         queryKey: ["current-user-profile"], // useGetCurrentUserProfile.ts // 쿼리 키값 무효화
       });
 
+      // 플레이리스트 전체 무효화 (playlist_id 상관없이)
+      queryClient.invalidateQueries({
+        queryKey: ["current-user-playlists"],
+        exact: false, // 모든 하위 키 포함 무효화
+      });
+
       // 강제로 새로 가져오기 : 직접 새 쿼리 실행해서 데이터 가져오기
       const profile = await getCurrentUserProfile();
+      // 첫 페이지 플레이리스트 강제 fetch + 캐시 등록
+      const playlist = await getCurrentUserPlaylists({
+        limit: PAGE_LIMIT,
+        offset: 0,
+      });
       // 쿼리 캐시에 강제로 세팅
       queryClient.setQueryData(["current-user-profile"], profile);
+      queryClient.setQueryData(["current-user-playlists"], {
+        pageParams: [0],
+        pages: [playlist], // useInfiniteQuery 구조에 맞게
+      });
     },
     onError: (error) => {
       console.error("Token exchange mutation error:", error);

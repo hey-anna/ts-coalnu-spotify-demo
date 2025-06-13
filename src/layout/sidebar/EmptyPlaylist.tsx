@@ -4,6 +4,7 @@ import { styled } from "@mui/material/styles";
 import { useState } from "react";
 import useLogin from "../../hooks/useLogin";
 import BasicTooltip from "../../components/tooltip/BasicTooltip";
+import { useNavigate } from "react-router-dom";
 
 const EmptyBox = styled(Box)(({ theme }) => ({
   backgroundColor: "#242424",
@@ -51,7 +52,25 @@ const FloatingIconButton = styled(IconButton)(({ theme }) => ({
 }));
 
 const EmptyPlaylist = () => {
-  const login = useLogin();
+  const navigate = useNavigate();
+  // const login = useLogin();
+  // const navigate = useNavigate();
+  // const login = () => {
+  //   return () => {
+  //     navigate("/login-required");
+  //   };
+  // };
+
+  const handleLoginClick = () => {
+    const accessToken = localStorage.getItem("access_token");
+
+    if (!accessToken) {
+      navigate("/login-required");
+    } else {
+      console.log("로그인된 사용자: 다른 동작 가능"); // 예: createPlaylist()
+    }
+  };
+
   const [openTooltip, setOpenTooltip] = useState(true);
   return (
     <EmptyBox>
@@ -65,7 +84,7 @@ const EmptyPlaylist = () => {
         <CreatePlaylistButton
           variant="contained"
           sx={{ display: { xs: "none", md: "inline-flex" } }}
-          onClick={login}
+          onClick={handleLoginClick}
         >
           Create playlist
         </CreatePlaylistButton>
@@ -73,7 +92,7 @@ const EmptyPlaylist = () => {
       <BasicTooltip>
         <FloatingIconButton
           sx={{ display: { xs: "inline-flex", md: "none" } }}
-          onClick={login}
+          onClick={handleLoginClick}
         >
           <Add />
         </FloatingIconButton>

@@ -18,6 +18,7 @@ import { PAGE_LIMIT } from "../../configs/commonConfig";
 import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
 import CommonSpinner from "../../components/spinner/CommonSpinner";
+import EmptyPlaylistWithSearch from "../../layout/playlistLayout/EmptyPlaylistWithSearch";
 
 const PlaylistDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -80,7 +81,7 @@ const PlaylistDetailPage = () => {
         />
       </Box>
       {playlist?.tracks?.total === 0 ? (
-        <Typography>써치</Typography>
+        <EmptyPlaylistWithSearch />
       ) : (
         // <Box
         //   sx={{

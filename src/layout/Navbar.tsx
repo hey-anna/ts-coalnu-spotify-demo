@@ -4,8 +4,17 @@ import useGetCurrentUserProfile from "../hooks/useGetCurrentUserProfile";
 import { AccountCircle, ArrowForward } from "@mui/icons-material";
 import { keyframes } from "@emotion/react";
 import { styled } from "@mui/material/styles";
+import useAuthStore from "../store/useAuthStore";
+import useLogin from "../hooks/useLogin";
+import UserProfileInfo from "./headerArea/UserProfileInfo";
+import { useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const { hasAccessToken, clearToken } = useAuthStore();
+  const login = useLogin();
+  const queryClient = useQueryClient();
   const {
     data: userProfile,
     isLoading,
@@ -17,12 +26,32 @@ const Navbar = () => {
   const isLoadingProfile = isLoading || isFetching;
   // if (isLoading || isFetching) return null;
 
+  // 로그인 로그아웃
+  // const handleAuthAction = () => {
+  //   isLoggedIn ? clearToken() : login();
+  // };
+
   // 토큰 생성 시각 확인
+  const accessToken = localStorage.getItem("access_token");
   const createdAt = Number(localStorage.getItem("token_created_at"));
   const now = Date.now();
   // const isTokenStale = createdAt && now - createdAt >= 55 * 60 * 1000;
   const isTokenStale = Boolean(createdAt) && now - createdAt >= 55 * 60 * 1000;
   // const isTokenStale = Boolean(createdAt) && now - createdAt >= 10 * 1000; // 10초
+
+  // const isLoggedIn = hasAccessToken; // 이거 관련된 코드 사용성 테스트 후 불필요하면 삭제하기 !!Check
+  const isLoggedIn = Boolean(accessToken) && !isTokenStale;
+
+  const handleAuthAction = () => {
+    if (isLoggedIn) {
+      clearToken();
+      navigate("/login-required");
+      // window.location.reload();
+      // queryClient.removeQueries({ queryKey: ["current-user-profile"] }); // ✅ 쿼리 삭제
+    } else {
+      login();
+    }
+  };
 
   console.log("isTokenStale:", isTokenStale, typeof isTokenStale);
 
@@ -79,54 +108,17 @@ const Navbar = () => {
             </BouncingWrapper>
           )}
           {/* <BouncingArrow /> */}
-          <LoginButton />
+          <LoginButton isLoggedIn={isLoggedIn} onClick={handleAuthAction} />
         </Box>
       ) : (
-        <Box
-          display="flex"
-          // flexDirection="column"
-          alignItems="center"
-          justifyContent="flex-end"
-          gap={1.2}
-        >
-          <Box>
-            <span style={{ fontSize: 18 }}>
-              You're logged in as{" "}
-              <span style={{ color: "#77d36f", fontWeight: 600 }}>
-                {userProfile.display_name}
-              </span>
-            </span>
-          </Box>
-          <Box
-            width={48}
-            height={48}
-            borderRadius="50%"
-            overflow="hidden"
-            bgcolor="#e2e8f0"
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-          >
-            {profileImgSrc ? (
-              <img
-                src={profileImgSrc}
-                alt="프로필 이미지"
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                }}
-              />
-            ) : (
-              <AccountCircle
-                sx={{
-                  width: "118.5%",
-                  height: "118.5%",
-                  color: "#718096",
-                }}
-              />
-            )}
-          </Box>
+        <Box display="flex" alignItems="center" gap={1.5}>
+          {accessToken && (
+            <UserProfileInfo
+              displayName={userProfile.display_name}
+              profileImgSrc={profileImgSrc}
+            />
+          )}
+          <LoginButton isLoggedIn={isLoggedIn} onClick={handleAuthAction} />
         </Box>
       )}
     </Box>
