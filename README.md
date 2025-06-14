@@ -57,6 +57,7 @@ React Router v7.6.1, Tailwind CSS, Webpack 등을 활용하여 모던한 웹 애
 | `@tanstack/react-query`       | 서버 상태를 효과적으로 관리할 수 있는 React Query 라이브러리입니다.                           |
 | `axios`                       | HTTP 요청을 처리하기 위한 경량화된 비동기 통신 라이브러리입니다.                              |
 | `react-intersection-observer` | 뷰포트와의 교차 상태를 감지하여 무한 스크롤 등 인터랙션을 구현할 수 있는 라이브러리입니다.    |
+| `zustand`                     | 가볍고 직관적인 전역 상태 관리 라이브러리로, Redux보다 간단하게 상태를 관리할 수 있습니다.    |
 
 ---
 
@@ -116,6 +117,9 @@ yarn add axios
 
 # 무한 스크롤 기능을 위한 인터섹션 옵저버 라이브러리
 yarn add react-intersection-observer
+
+# Zustand (전역 상태 관리)
+yarn add zustand
 
 ```
 

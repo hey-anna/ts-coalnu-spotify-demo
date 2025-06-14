@@ -67,7 +67,7 @@ const TestLoginModal = ({ open }: { open: boolean }) => {
           계정입니다. 사용 후에는 꼭 로그아웃해주시고, 비밀번호는 복사하여
           정확히 입력해주시길 부탁드립니다.
         </Typography>
-        <Box
+        {/* <Box
           sx={{
             borderTop: "1px dashed #ccc",
             mt: 3,
@@ -93,7 +93,7 @@ const TestLoginModal = ({ open }: { open: boolean }) => {
           >
             ⚠️ 확인 부탁드립니다
           </Typography>
-        </Box>
+        </Box> */}
         <Typography
           variant="body2"
           sx={{
