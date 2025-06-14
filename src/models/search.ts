@@ -33,7 +33,7 @@ export interface SearchResponse {
   artists?: ApiResponse<ArtistObject>;
   albums?: ApiResponse<SimplifiedAlbum>; // SimplifiedAlbumObject
   playlists?: ApiResponse<SimplifiedPlaylist>;
-  show?: ApiResponse<ShowObject>;
-  episode?: ApiResponse<EpisodeObject>; // SimplifiedEposode - 다른줄 알고 빼려 했으나 EpisodeObject 동일했움
-  audiobook?: ApiResponse<SimplifiedAudioBook>;
+  shows?: ApiResponse<ShowObject>;
+  episodes?: ApiResponse<EpisodeObject>; // SimplifiedEposode - 다른줄 알고 빼려 했으나 EpisodeObject 동일했움
+  audiobooks?: ApiResponse<SimplifiedAudioBook>;
 }

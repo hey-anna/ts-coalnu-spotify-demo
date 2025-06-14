@@ -130,7 +130,7 @@ export interface CopyrightObject {
 //   reason?: string;
 // }
 
-// 공통 필드
+// 공통 필드 이나 옵셔널 차이가 잇움,
 // interface BasePlayableItem {
 //   name?: string;
 //   duration_ms?: number;
