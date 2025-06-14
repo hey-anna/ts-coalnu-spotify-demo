@@ -5,6 +5,8 @@ import {
   Box,
   InputBase,
   CircularProgress,
+  styled,
+  Box as MuiBox,
 } from "@mui/material";
 import useSearchItemsByKeyword from "../../hooks/useSearchItemsByKeyword";
 import { SEARCH_TYPE } from "../../models/search";
@@ -12,6 +14,28 @@ import SearchResultList from "../searchLayout/SearchResultList";
 import { Close, Search } from "@mui/icons-material";
 import { useInView } from "react-intersection-observer";
 import { PAGE_LIMIT20 } from "../../configs/commonConfig";
+
+const Wrapper = styled(MuiBox)(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "flex-start",
+  marginBottom: theme.spacing(2),
+  marginTop: theme.spacing(2),
+}));
+
+const SearchBar = styled(MuiBox)(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  backgroundColor: "#2A2A2A",
+  borderRadius: theme.shape.borderRadius,
+  width: "40%",
+  paddingLeft: theme.spacing(2),
+  paddingRight: theme.spacing(2),
+  paddingTop: theme.spacing(1),
+  paddingBottom: theme.spacing(1),
+  marginBottom: theme.spacing(2),
+  height: 52,
+}));
 
 const EmptyPlaylistWithSearch = () => {
   const [keyword, setKeyword] = useState<string>("");
@@ -49,19 +73,11 @@ const EmptyPlaylistWithSearch = () => {
     }
   }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
+  const allTracks =
+    searchResult?.pages.flatMap((page) => page.tracks?.items || []) || [];
+
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "flex-start",
-        // alignItems: "center",
-        // position: "relative", // 대형 X 버튼 위치 고정
-        // px: 3,
-        mb: 2,
-        mt: 2,
-      }}
-    >
+    <Wrapper>
       <Typography
         variant="h6"
         fontWeight={600}
@@ -71,19 +87,7 @@ const EmptyPlaylistWithSearch = () => {
         Let's find something for your playlist
       </Typography>
       {/* Search Bar */}
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          backgroundColor: "#2A2A2A",
-          borderRadius: 1,
-          width: "40%",
-          px: 2,
-          py: 1,
-          mb: 2,
-          height: 52,
-        }}
-      >
+      <SearchBar>
         <Search sx={{ color: "gray" }} />
         <InputBase
           sx={{ ml: 1, flex: 1, color: "white" }}
@@ -96,7 +100,7 @@ const EmptyPlaylistWithSearch = () => {
             <Close sx={{ color: "white" }} />
           </IconButton>
         )}
-      </Box>
+      </SearchBar>
       {/* Search Result List */}
       <Box width="100%">
         {!keyword ? null : isLoading ? ( // ) //   <Typography sx={{ mt: 2 }}> 검색어를 입력하세요.</Typography> // (
@@ -107,20 +111,14 @@ const EmptyPlaylistWithSearch = () => {
           <Typography color="error" sx={{ mt: 2 }}>
             검색 중 문제가 발생했습니다.
           </Typography>
-        ) : searchResult?.pages.every((page) => !page.tracks?.items.length) ? (
+        ) : allTracks.length === 0 ? (
           <Typography sx={{ mt: 2 }}>
             검색 결과가 없습니다. "<strong>{keyword}</strong>"
           </Typography>
         ) : (
-          searchResult?.pages.map((page) =>
-            page.tracks?.items.length ? (
-              <SearchResultList
-                key={page.tracks.href}
-                list={page.tracks.items}
-              />
-            ) : null,
-          )
+          <SearchResultList list={allTracks} />
         )}
+
         {/* 무한스크롤 트리거 + 다음 페이지 로딩 표시 */}
         <div ref={ref}>
           {isFetchingNextPage && (
@@ -143,7 +141,7 @@ const EmptyPlaylistWithSearch = () => {
       >
         <Close sx={{ fontSize: 32, color: "white" }} />
       </IconButton> */}
-    </Box>
+    </Wrapper>
   );
 };
 
