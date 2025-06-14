@@ -3,6 +3,7 @@ import type { LazyExoticComponent, ComponentType } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import CommonSpinner from "../components/spinner/CommonSpinner";
 import ErrorPage from "../views/ErrorPage/ErrorPage";
+import AuthGuard from "../guards/AuthGuard";
 
 // 레이지 로딩 컴포넌트들
 const AppLayout = lazy(() => import("../layout/AppLayout"));
@@ -29,6 +30,14 @@ const withSuspense = (Component: LazyExoticComponent<ComponentType<any>>) => (
   </Suspense>
 );
 
+const withAuthGuard = (Component: LazyExoticComponent<ComponentType<any>>) => (
+  <Suspense fallback={<CommonSpinner />}>
+    <AuthGuard>
+      <Component />
+    </AuthGuard>
+  </Suspense>
+);
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -49,11 +58,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "playlist/:id",
-        element: withSuspense(PlaylistDetailPage),
+        element: withAuthGuard(PlaylistDetailPage),
       },
       {
         path: "playlist",
-        element: withSuspense(PlaylistPage),
+        element: withAuthGuard(PlaylistPage),
       }, // 모바일
       {
         path: "callback",
