@@ -14,7 +14,7 @@ import {
 import useGetPlaylistItems from "../../hooks/useGetPlaylistItems";
 import ErrorMessage from "../../components/Alert/ErrorMessage";
 import DesktopPlaylistItem from "../../layout/playlistLayout/DesktopPlaylistItem";
-import { PAGE_LIMIT } from "../../configs/commonConfig";
+import { PAGE_LIMIT10 } from "../../configs/commonConfig";
 import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
 import CommonSpinner from "../../components/spinner/CommonSpinner";
@@ -37,7 +37,7 @@ const PlaylistDetailPage = () => {
     isFetchingNextPage,
     isLoading: isPlaylist,
     error: playlistItemsLoading,
-  } = useGetPlaylistItems({ playlist_id: id, limit: PAGE_LIMIT });
+  } = useGetPlaylistItems({ playlist_id: id, limit: PAGE_LIMIT10 });
 
   const { ref, inView } = useInView();
   const pages = playlistItems?.pages ?? [];
@@ -111,9 +111,9 @@ const PlaylistDetailPage = () => {
                 <DesktopPlaylistItem
                   item={item}
                   key={itemIndex}
-                  // key={pageIndex * PAGE_LIMIT + itemIndex + 1}
+                  // key={pageIndex * PAGE_LIMIT10 + itemIndex + 1}
                   index={itemIndex + 1}
-                  // pageIndex * PAGE_LIMIT 11 12
+                  // pageIndex * PAGE_LIMIT10 11 12
                   // itemIndex(0) + 1
                 />
               );

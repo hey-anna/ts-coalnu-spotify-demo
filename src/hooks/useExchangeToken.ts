@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { exchangeToken } from "../apis/authApi";
 import { ExchangeTokenResponse } from "../models/auth";
 import { getCurrentUserProfile } from "../apis/userApi";
-import { PAGE_LIMIT } from "../configs/commonConfig";
+import { PAGE_LIMIT10 } from "../configs/commonConfig";
 import { getCurrentUserPlaylists } from "../apis/playlistApi";
 
 const useExchangeToken = () => {
@@ -38,7 +38,7 @@ const useExchangeToken = () => {
       const profile = await getCurrentUserProfile();
       // 첫 페이지 플레이리스트 강제 fetch + 캐시 등록
       const playlist = await getCurrentUserPlaylists({
-        limit: PAGE_LIMIT,
+        limit: PAGE_LIMIT10,
         offset: 0,
       });
       // 쿼리 캐시에 강제로 세팅

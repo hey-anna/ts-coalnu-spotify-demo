@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Typography,
   IconButton,
@@ -10,16 +10,27 @@ import useSearchItemsByKeyword from "../../hooks/useSearchItemsByKeyword";
 import { SEARCH_TYPE } from "../../models/search";
 import SearchResultList from "../searchLayout/SearchResultList";
 import { Close, Search } from "@mui/icons-material";
+import { useInView } from "react-intersection-observer";
+import { PAGE_LIMIT20 } from "../../configs/commonConfig";
 
 const EmptyPlaylistWithSearch = () => {
   const [keyword, setKeyword] = useState<string>("");
+
+  // 교차점 감지를 위한 ref, inView (무한스크롤용)
+  const { ref, inView } = useInView();
+
+  // 검색 API 호출 + 무한 스크롤 관련 상태
   const {
     data: searchResult,
     error,
     isLoading,
+    fetchNextPage, // 다음 페이지 호출 함수
+    hasNextPage, // 다음 페이지 존재 여부
+    isFetchingNextPage, // 다음 페이지 요청 중 여부
   } = useSearchItemsByKeyword({
     q: keyword,
     type: [SEARCH_TYPE.Track], // 이놈 ~! 타입 들고 오기
+    limit: PAGE_LIMIT20,
   });
   console.log("SEARCH_TYPE.Track", searchResult); // "SEARCH_TYPE.Album" 결과값을 선택해서 다이나믹하게 찾아 올 수 있다
 
@@ -30,6 +41,13 @@ const EmptyPlaylistWithSearch = () => {
   const handleClear = () => {
     setKeyword("");
   };
+
+  // 무한 스크롤 조건 감지 시 다음 페이지 호출
+  useEffect(() => {
+    if (inView && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   return (
     <Box
@@ -81,8 +99,7 @@ const EmptyPlaylistWithSearch = () => {
       </Box>
       {/* Search Result List */}
       <Box width="100%">
-        {!keyword ? null : // ) //   <Typography sx={{ mt: 2 }}> 검색어를 입력하세요.</Typography> // (
-        isLoading ? (
+        {!keyword ? null : isLoading ? ( // ) //   <Typography sx={{ mt: 2 }}> 검색어를 입력하세요.</Typography> // (
           <Box display="flex" justifyContent="center" py={4}>
             <CircularProgress />
           </Box>
@@ -104,6 +121,14 @@ const EmptyPlaylistWithSearch = () => {
             ) : null,
           )
         )}
+        {/* 무한스크롤 트리거 + 다음 페이지 로딩 표시 */}
+        <div ref={ref}>
+          {isFetchingNextPage && (
+            <Box display="flex" justifyContent="center" py={4}>
+              <CircularProgress />
+            </Box>
+          )}
+        </div>
       </Box>
       {/* 우측 X */}
       {/* <IconButton
