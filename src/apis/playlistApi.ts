@@ -1,5 +1,7 @@
 import useGetplaylist from "../hooks/useGetplaylist";
 import {
+  AddTrackToPlaylistRequest,
+  AddTrackToPlaylistResponse,
   CreatePlaylistRequest,
   GetCurrentUserPlaylistRequest,
   GetCurrentUserPlaylistResponse,
@@ -67,13 +69,13 @@ export const getPlaylistItems = async (
 
 export const createPlaylist = async (
   user_id: string,
-  playlistData: CreatePlaylistRequest,
+  payload: CreatePlaylistRequest,
 ): Promise<Playlist> => {
   try {
-    const { name, playListPublic, collaborative, description } = playlistData;
+    const { name, playListPublic, collaborative, description } = payload;
     const response = await authApiInstance.post(
       `/users/${user_id}/playlists`,
-      // playlistData,
+      // payload: playlistData(body=payload)를 payload 변경 함 - 네이밍 일관성 위해
       {
         name,
         public: playListPublic, // 보낼때는 public으로 보내줘야 한다
@@ -84,5 +86,20 @@ export const createPlaylist = async (
     return response.data;
   } catch (error) {
     throw new Error("fail to create playlist");
+  }
+};
+
+// 추가 버튼
+export const addTrackToPlaylist = async (
+  payload: AddTrackToPlaylistRequest,
+): Promise<AddTrackToPlaylistResponse> => {
+  // const { playlist_id, ...body } = payload; // 구조분해로 꺼냄
+  try {
+    const response = await authApiInstance.post(
+      `/playlists/${payload.playlist_id}/tracks`,
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error("fail to add track to playlist");
   }
 };

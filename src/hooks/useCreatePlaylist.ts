@@ -8,10 +8,10 @@ const useCreatePlaylist = () => {
   const { data: user } = useGetCurrentUserProfile(); // 의미 있는 이름으로 추출
 
   return useMutation({
-    mutationFn: (playlistData: CreatePlaylistRequest) => {
+    mutationFn: (payload: CreatePlaylistRequest) => {
       // POST body는 data로
       if (user?.id) {
-        return createPlaylist(user?.id, playlistData);
+        return createPlaylist(user?.id, payload);
       }
       return Promise.reject(new Error("User is not defined or missing ID"));
     },

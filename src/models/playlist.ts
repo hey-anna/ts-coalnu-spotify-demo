@@ -72,3 +72,13 @@ export interface CreatePlaylistRequest {
   collaborative?: boolean;
   description?: string;
 }
+
+export interface AddTrackToPlaylistRequest {
+  playlist_id: string; // 어떤 플레이리스트에 추가할지
+  uris: string[]; // 추가할 트랙들의 Spotify URI 목록 - 필수값이라 젹혀있지않지만, 400에러 예상되어 미리 필수로 지정
+  position?: number; // 몇 번째 위치에 삽입할지 (선택)
+}
+
+export interface AddTrackToPlaylistResponse {
+  snapshot_id: string;
+}
