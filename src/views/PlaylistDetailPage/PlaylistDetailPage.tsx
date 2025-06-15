@@ -81,7 +81,7 @@ const PlaylistDetailPage = () => {
         />
       </Box>
       {playlist?.tracks?.total === 0 ? (
-        <EmptyPlaylistWithSearch />
+        <EmptyPlaylistWithSearch playlist_id={id} />
       ) : (
         // <Box
         //   sx={{

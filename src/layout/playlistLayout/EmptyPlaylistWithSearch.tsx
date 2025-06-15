@@ -37,7 +37,7 @@ const SearchBar = styled(MuiBox)(({ theme }) => ({
   height: 52,
 }));
 
-const EmptyPlaylistWithSearch = () => {
+const EmptyPlaylistWithSearch = ({ playlist_id }: { playlist_id: string }) => {
   const [keyword, setKeyword] = useState<string>("");
 
   // 교차점 감지를 위한 ref, inView (무한스크롤용)
@@ -116,7 +116,7 @@ const EmptyPlaylistWithSearch = () => {
             검색 결과가 없습니다. "<strong>{keyword}</strong>"
           </Typography>
         ) : (
-          <SearchResultList list={allTracks} />
+          <SearchResultList list={allTracks} playlist_id={playlist_id} />
         )}
 
         {/* 무한스크롤 트리거 + 다음 페이지 로딩 표시 */}

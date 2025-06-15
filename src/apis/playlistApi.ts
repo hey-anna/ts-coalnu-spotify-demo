@@ -93,10 +93,11 @@ export const createPlaylist = async (
 export const addTrackToPlaylist = async (
   payload: AddTrackToPlaylistRequest,
 ): Promise<AddTrackToPlaylistResponse> => {
-  // const { playlist_id, ...body } = payload; // 구조분해로 꺼냄
+  const { playlist_id, ...body } = payload; // 구조분해로 꺼냄
   try {
     const response = await authApiInstance.post(
       `/playlists/${payload.playlist_id}/tracks`,
+      body,
     );
     return response.data;
   } catch (error) {
