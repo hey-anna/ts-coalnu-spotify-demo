@@ -15,7 +15,7 @@ const UserProfileInfo = ({
     <Box display="flex" alignItems="center" justifyContent="flex-end" gap={1.2}>
       <Box>
         <span style={{ fontSize: 18 }}>
-          You're logged in as{" "}
+          {/* You're logged in as{" "} */}
           <span style={{ color: "#77d36f", fontWeight: 600 }}>
             {displayName}
           </span>

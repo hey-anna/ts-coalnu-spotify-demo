@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import useSearchItemsByKeyword from "../../hooks/useSearchItemsByKeyword";
 import { SEARCH_TYPE } from "../../models/search";
-import SearchResultList from "../searchLayout/SearchResultList";
+import SearchResultList from "./SearchResultList";
 import { Close, Search } from "@mui/icons-material";
 import { useInView } from "react-intersection-observer";
 import { PAGE_LIMIT20 } from "../../configs/commonConfig";
@@ -58,11 +58,13 @@ const EmptyPlaylistWithSearch = ({ playlist_id }: { playlist_id: string }) => {
   });
   console.log("SEARCH_TYPE.Track", searchResult); // "SEARCH_TYPE.Album" 결과값을 선택해서 다이나믹하게 찾아 올 수 있다
 
-  const handleSearchKeyword = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearchKeyword = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ): void => {
     setKeyword(event.target.value);
   };
 
-  const handleClear = () => {
+  const handleClear = (): void => {
     setKeyword("");
   };
 

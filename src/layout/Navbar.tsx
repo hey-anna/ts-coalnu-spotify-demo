@@ -7,14 +7,29 @@ import { styled } from "@mui/material/styles";
 import useAuthStore from "../store/useAuthStore";
 import useLogin from "../hooks/useLogin";
 import UserProfileInfo from "./headerArea/UserProfileInfo";
-import { useQueryClient } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
+// import { useQueryClient } from "@tanstack/react-query";
+import { useLocation, useNavigate } from "react-router-dom";
+import NavbarSearchBar from "./searchLayout/NavbarSearchBar";
+import { useState } from "react";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const { hasAccessToken, clearToken } = useAuthStore();
+  const location = useLocation();
+  const isSearchPage = location.pathname.startsWith("/search");
+  const [keyword, setKeyword] = useState<string>(""); // 검색
+  const handleSearchKeyword = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ): void => {
+    setKeyword(e.target.value);
+  };
+
+  const handleClear = (): void => {
+    setKeyword("");
+  };
+
+  const { hasAccessToken, clearToken } = useAuthStore(); // 사용자 - 리팩토 해야 됨
   const login = useLogin();
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
   const {
     data: userProfile,
     isLoading,
@@ -24,12 +39,6 @@ const Navbar = () => {
   // 로딩 중일 때 아무것도 렌더링하지 않음
   // isFetching까지 고려해 미세한 깜빡임 방지
   const isLoadingProfile = isLoading || isFetching;
-  // if (isLoading || isFetching) return null;
-
-  // 로그인 로그아웃
-  // const handleAuthAction = () => {
-  //   isLoggedIn ? clearToken() : login();
-  // };
 
   // 토큰 생성 시각 확인
   const accessToken = localStorage.getItem("access_token");
@@ -74,11 +83,7 @@ const Navbar = () => {
     transform: translateY(-4px);
   }
 `;
-  // const BouncingArrow = styled(ArrowForward)`
-  //   animation: ${bounce} 1s infinite;
-  //   font-size: 18px;
-  //   color: #a0aec0;
-  // `;
+
   const BouncingWrapper = styled("div")`
     display: flex;
     align-items: center;
@@ -95,6 +100,19 @@ const Navbar = () => {
       height="64px"
       px={2}
     >
+      {/* 왼쪽: 검색 페이지일 경우 검색바 */}
+      {isSearchPage ? (
+        <NavbarSearchBar
+          keyword={keyword}
+          onChange={handleSearchKeyword}
+          onClear={handleClear}
+          // onChange={(e) => setKeyword(e.target.value)}
+          // onClear={() => setKeyword("")}
+        />
+      ) : (
+        <Box width={200} /> // 왼쪽 공간 유지용 (optional)
+      )}
+
       {isLoadingProfile ? (
         <Box width={48} height={24} /> // 스켈리톤으로 대응하려했으나, 조건분기 및 토큰만료 시간으로 처리 함
       ) : !userProfile || isTokenStale ? ( // 여기로 로그인 버튼 조건분기를 올기고, 토큰만료 전 화면표시
