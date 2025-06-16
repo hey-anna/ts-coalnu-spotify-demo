@@ -1,3 +1,5 @@
+// 플레이리스트 내 검색폼 타입 - 다른 검색폼 타입과 파일로 구분해야 할듯
+
 import { SimplifiedAlbum } from "./album";
 import { ApiResponse } from "./apiResponse";
 import { ArtistObject, Artists } from "./artists";

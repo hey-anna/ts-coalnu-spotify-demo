@@ -95,23 +95,25 @@ const Navbar = () => {
   return (
     <Box
       display="flex"
-      justifyContent="flex-end"
+      justifyContent="space-between"
       alignItems="center"
       height="64px"
       px={2}
+      // gap={30}
     >
-      {/* 왼쪽: 검색 페이지일 경우 검색바 */}
-      {isSearchPage ? (
-        <NavbarSearchBar
-          keyword={keyword}
-          onChange={handleSearchKeyword}
-          onClear={handleClear}
-          // onChange={(e) => setKeyword(e.target.value)}
-          // onClear={() => setKeyword("")}
-        />
-      ) : (
-        <Box width={200} /> // 왼쪽 공간 유지용 (optional)
-      )}
+      <Box flexGrow={1} pr={2} alignItems="center">
+        {/* 왼쪽: 검색 페이지일 경우 검색바 */}
+        {isSearchPage && (
+          <NavbarSearchBar
+            keyword={keyword}
+            onChange={handleSearchKeyword}
+            onClear={handleClear}
+            width="70%"
+            // onChange={(e) => setKeyword(e.target.value)}
+            // onClear={() => setKeyword("")}
+          />
+        )}
+      </Box>
 
       {isLoadingProfile ? (
         <Box width={48} height={24} /> // 스켈리톤으로 대응하려했으나, 조건분기 및 토큰만료 시간으로 처리 함

@@ -14,11 +14,8 @@ const SearchBarContainer = styled(Box)(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   backgroundColor: "#2A2A2A",
-  borderRadius: theme.shape.borderRadius,
-  paddingLeft: theme.spacing(2),
-  paddingRight: theme.spacing(2),
-  paddingTop: theme.spacing(1),
-  paddingBottom: theme.spacing(1),
+  borderRadius: 9999, // pill 형태
+  padding: `${theme.spacing(1)} ${theme.spacing(2)}`,
   height: 52,
 }));
 
@@ -27,13 +24,23 @@ const NavbarSearchBar = ({
   onChange,
   onClear,
   placeholder = "검색어를 입력하세요",
-  width = "40%",
+  width,
 }: NavbarSearchBarProps) => {
   return (
-    <SearchBarContainer sx={{ width, mb: 2 }}>
-      <Search sx={{ color: "gray" }} />
+    <SearchBarContainer sx={{ width }}>
+      <Search sx={{ color: "#b3b3b3" }} />
       <InputBase
-        sx={{ ml: 1, flex: 1, color: "white" }}
+        sx={{
+          ml: 1,
+          flex: 1,
+          color: "white",
+          fontSize: "1.2rem", // 입력된 텍스트 크기
+          "& input::placeholder": {
+            color: "#b3b3b3",
+            fontSize: "1.2rem", // placeholder 텍스트 크기
+            opacity: 1, // 일부 브라우저에서 흐릿하게 나오는 것 방지
+          },
+        }}
         placeholder={placeholder}
         value={keyword}
         onChange={onChange}
