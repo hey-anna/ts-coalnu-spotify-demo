@@ -16,12 +16,25 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const isSearchPage = location.pathname.startsWith("/search");
-  const [keyword, setKeyword] = useState<string>(""); // 검색
+  const [keyword, setKeyword] = useState<string>("");
+
+  // 검색어 입력
   const handleSearchKeyword = (
     e: React.ChangeEvent<HTMLInputElement>,
   ): void => {
-    setKeyword(e.target.value);
+    const value = e.target.value;
+    setKeyword(value);
+    if (value.trim()) {
+      navigate(`/search/${value.trim()}`);
+    }
   };
+
+  // on search
+  // const handleSearch = () => {
+  //   if (keyword.trim()) {
+  //     navigate(`/search/${keyword.trim()}`);
+  //   }
+  // };
 
   const handleClear = (): void => {
     setKeyword("");
@@ -56,7 +69,7 @@ const Navbar = () => {
       clearToken();
       navigate("/login-required");
       // window.location.reload();
-      // queryClient.removeQueries({ queryKey: ["current-user-profile"] }); // ✅ 쿼리 삭제
+      // queryClient.removeQueries({ queryKey: ["current-user-profile"] }); // 쿼리 삭제
     } else {
       login();
     }
@@ -107,10 +120,9 @@ const Navbar = () => {
           <NavbarSearchBar
             keyword={keyword}
             onChange={handleSearchKeyword}
+            // onSearch={handleSearch}
             onClear={handleClear}
             width="70%"
-            // onChange={(e) => setKeyword(e.target.value)}
-            // onClear={() => setKeyword("")}
           />
         )}
       </Box>

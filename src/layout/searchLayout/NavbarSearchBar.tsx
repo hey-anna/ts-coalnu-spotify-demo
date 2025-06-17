@@ -5,6 +5,7 @@ import { styled } from "@mui/material/styles";
 interface NavbarSearchBarProps {
   keyword: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  // onSearch: () => void;
   onClear: () => void;
   placeholder?: string;
   width?: string | number;
@@ -22,10 +23,17 @@ const SearchBarContainer = styled(Box)(({ theme }) => ({
 const NavbarSearchBar = ({
   keyword,
   onChange,
+  // onSearch,
   onClear,
-  placeholder = "검색어를 입력하세요",
+  placeholder = "어떤 콘텐츠를 감삼하고 싶으세요?",
   width,
 }: NavbarSearchBarProps) => {
+  // const handleSearch = () => {
+  //   if (keyword.trim()) {
+  //     navigate(`/search/${keyword.trim()}`);
+  //   }
+  // };
+
   return (
     <SearchBarContainer sx={{ width }}>
       <Search sx={{ color: "#b3b3b3" }} />
@@ -44,6 +52,11 @@ const NavbarSearchBar = ({
         placeholder={placeholder}
         value={keyword}
         onChange={onChange}
+        // onKeyDown={(e) => {
+        //   if (e.key === "Enter") {
+        //     onSearch();
+        //   }
+        // }}
       />
       {keyword && (
         <IconButton onClick={onClear}>

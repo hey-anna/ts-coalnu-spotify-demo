@@ -2,12 +2,18 @@ import { Box, Grid, Typography } from "@mui/material";
 import useBrowseCategoriesQuery from "../../hooks/useBrowseCategoriesQuery";
 import CategoryCard from "../../layout/searchLayout/CategoryCard";
 import { colorPalette } from "../../constants/colorPalette";
+import { useParams } from "react-router-dom";
+import useSearchItemsByKeyword from "../../hooks/useSearchItemsByKeyword";
+import SearchResultsLayout from "../../layout/searchLayout/SearchResultsLayout";
+import { SEARCH_TYPE } from "../../models/search";
+import { PAGE_LIMIT20 } from "../../configs/commonConfig";
 
 const getRandomColor = () => {
   return colorPalette[Math.floor(Math.random() * colorPalette.length)];
 };
 
 const SearchPage = () => {
+  // 카테고리 데이터
   const {
     data: categoryData,
     isLoading: isCategoryLoading,
@@ -27,14 +33,7 @@ const SearchPage = () => {
 
       <Grid container spacing={2}>
         {categoryData?.categories.items.map((category) => (
-          <Grid
-            size={{
-              //  xs: 6,
-              sm: 6,
-              md: 4,
-            }}
-            key={category.id}
-          >
+          <Grid size={{ sm: 6, md: 4 }} key={category.id}>
             <CategoryCard
               title={category.name}
               imageUrl={category.icons[0]?.url}
