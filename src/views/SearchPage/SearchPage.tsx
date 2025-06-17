@@ -1,6 +1,6 @@
 import { Box, Grid, Typography } from "@mui/material";
 import useBrowseCategoriesQuery from "../../hooks/useBrowseCategoriesQuery";
-import CategoryCard from "./CategoryCard";
+import CategoryCard from "../../layout/searchLayout/CategoryCard";
 import { colorPalette } from "../../constants/colorPalette";
 
 const getRandomColor = () => {
