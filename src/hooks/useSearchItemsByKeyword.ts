@@ -9,7 +9,7 @@ const useSearchItemsByKeyword = (params: SearchRequestParams) => {
 
   return useInfiniteQuery({
     queryKey: ["search", params], // 파타미터 값
-    enabled: !!params?.q,
+    enabled: !!params?.q && !!clientCredentialToken,
     queryFn: ({ pageParam = 0 }) => {
       if (!clientCredentialToken) throw new Error("no token available");
       return searchItemsByKeyword(clientCredentialToken, {
