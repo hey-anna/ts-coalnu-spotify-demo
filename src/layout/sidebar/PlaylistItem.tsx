@@ -1,3 +1,4 @@
+import { MusicNoteRounded } from "@mui/icons-material";
 import { Box, Typography, Avatar } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
@@ -44,9 +45,18 @@ const PlaylistItem = ({
     <PlaylistBox onClick={() => handleClick(id)} selected={selected}>
       <Avatar
         variant="square"
-        src={imageUrl ? imageUrl : "no image"}
-        sx={{ width: 46, height: 46, borderRadius: 0.5 }}
-      />
+        // src={imageUrl ? imageUrl : "no image"}
+        src={imageUrl || undefined}
+        sx={{
+          width: 46,
+          height: 46,
+          borderRadius: 0.5,
+          bgcolor: imageUrl ? "transparent" : "#e0e0e0",
+          color: "#757575",
+        }}
+      >
+        {!imageUrl && <MusicNoteRounded fontSize="small" />}
+      </Avatar>
       <TextBox>
         <Typography
           fontSize="16px"
