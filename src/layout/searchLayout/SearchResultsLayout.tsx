@@ -78,33 +78,32 @@ const SearchResultsLayout = ({
       <Box mt={6}>
         <SearchAlbums list={albums} />
       </Box>
-      {/* 로그인 상태 아닌 경우 메시지 */}
+      {/* 로그인 필요 스낵바(로그인 상태 아닌 경우 메시지) */}
       <CommonSnackbar
-        open={toastOpen || addedSnackbarOpen}
-        onClose={() => {
-          setToastOpen(false);
-          setAddedSnackbarOpen(false);
-        }}
+        open={toastOpen}
+        onClose={() => setToastOpen(false)}
         message={
           <Box display="flex" alignItems="center" gap={1}>
-            {toastOpen ? (
-              <>
-                <WarningAmberRounded sx={{ color: "#fdd835" }} />
-                <Typography
-                  sx={{ fontSize: "1rem", paddingTop: "3px", color: "#fff" }}
-                >
-                  로그인이 필요합니다
-                </Typography>
-              </>
-            ) : (
-              <>
-                <MusicNoteRounded sx={{ color: "#1db954" }} />
-                <Typography sx={{ fontSize: "1rem", color: "#1db954" }}>
-                  플레이리스트에 추가되었습니다
-                  {/* "#66bb6a" */}
-                </Typography>
-              </>
-            )}
+            <WarningAmberRounded sx={{ color: "#fdd835" }} />
+            <Typography
+              sx={{ fontSize: "1rem", paddingTop: "3px", color: "#fff" }}
+            >
+              로그인이 필요합니다
+            </Typography>
+          </Box>
+        }
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+      />
+      {/* 추가 완료 스낵바 */}
+      <CommonSnackbar
+        open={addedSnackbarOpen}
+        onClose={() => setAddedSnackbarOpen(false)}
+        message={
+          <Box display="flex" alignItems="center" gap={1}>
+            <MusicNoteRounded sx={{ color: "#1db954" }} />
+            <Typography sx={{ fontSize: "1rem", color: "#1db954" }}>
+              플레이리스트에 추가되었습니다
+            </Typography>
           </Box>
         }
         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
