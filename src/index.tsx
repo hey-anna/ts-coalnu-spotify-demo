@@ -13,7 +13,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 const root = ReactDOM.createRoot(
   document.getElementById("content") as HTMLElement,
 );
-const queryClient = new QueryClient();
+export const queryClient = new QueryClient();
 root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>

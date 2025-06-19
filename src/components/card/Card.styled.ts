@@ -55,3 +55,14 @@ export const CardSubtitle = styled(Typography)(({ theme }) => ({
   overflow: "hidden",
   textOverflow: "ellipsis",
 }));
+
+export const PlusOverlay = styled(Box)(({ theme }) => ({
+  position: "absolute",
+  right: "52px", // 40px 56px 원하는 위치로 조정 가능 (시간 앞)
+  top: "50%",
+  transform: "translateY(-50%)",
+  opacity: 0,
+  transition: "opacity 0.3s ease-in-out",
+  zIndex: 2,
+  pointerEvents: "auto", // 클릭 가능하게
+}));

@@ -13,10 +13,15 @@ const useAddTrackToPlaylist = () => {
       }
       return addTrackToPlaylist(payload);
     },
-    onSuccess: () => {
+    onSuccess: (_, variables) => {
+      const { playlist_id } = variables;
       queryClient.invalidateQueries({ queryKey: ["current-user-playlists"] });
-      queryClient.invalidateQueries({ queryKey: ["playlist-detail"] });
-      queryClient.invalidateQueries({ queryKey: ["playlist-items"] });
+      queryClient.invalidateQueries({
+        queryKey: ["playlist-detail", playlist_id],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["playlist-items", playlist_id],
+      });
 
       console.log("추가하기 성공");
     },

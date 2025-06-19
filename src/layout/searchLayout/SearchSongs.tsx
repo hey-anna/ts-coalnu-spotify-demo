@@ -6,12 +6,20 @@ import {
   ListItemText,
   Avatar,
   Typography,
+  IconButton,
 } from "@mui/material";
 import { TrackObject } from "../../models/track";
 import PlayButton from "../../components/button/PlayButton";
-import { HoverOverlay } from "../../components/card/Card.styled";
+import { HoverOverlay, PlusOverlay } from "../../components/card/Card.styled";
+import { AddCircleOutlineOutlined } from "@mui/icons-material";
 
-const SearchSongs = ({ list }: { list: TrackObject[] }) => {
+const SearchSongs = ({
+  list,
+  onAddClick,
+}: {
+  list: TrackObject[];
+  onAddClick?: (song: TrackObject, anchorEl: HTMLElement) => void;
+}) => {
   return (
     <Box>
       <Typography variant="h5" fontWeight={700} gutterBottom>
@@ -33,12 +41,16 @@ const SearchSongs = ({ list }: { list: TrackObject[] }) => {
               "&:hover .hover-overlay": {
                 opacity: 1,
               },
+              "&:hover .plus-overlay": {
+                opacity: 1,
+              },
             })}
           >
+            {/* 왼쪽 썸네일 + 재생 */}
             <Box position="relative">
               <ListItemAvatar
                 sx={{
-                  minWidth: "auto", // ✅ 기본 56px 제거
+                  minWidth: "auto", // 기본 56px 제거
                   mr: 0, // 필요 시 마진 제거
                 }}
               >
@@ -66,19 +78,37 @@ const SearchSongs = ({ list }: { list: TrackObject[] }) => {
                 />
               </HoverOverlay>
             </Box>
+            {/* 가운데 곡 제목 + 아티스트 */}
             <ListItemText
               primary={song.name}
               secondary={song.artists?.[0]?.name}
+              sx={{ ml: 2 }}
             />
-            <Typography variant="body2" color="text.secondary">
-              {Math.floor((song.duration_ms ?? 0) / 60000)}:
-              {String(
-                Math.floor(((song.duration_ms ?? 0) / 1000) % 60),
-              ).padStart(2, "0")}
-              {/* {Math.floor((song.duration_ms ?? 0) / 60000)}:
-              {((song.duration_ms ?? 0) / 1000) % 60 < 10 ? "0" : ""}
-              {Math.floor(((song.duration_ms ?? 0) / 1000) % 60)} */}
-            </Typography>
+            {/* 오른쪽 Plus 버튼 + 시간 */}
+            <Box display="flex" alignItems="center" gap={4}>
+              <PlusOverlay className="plus-overlay">
+                <IconButton
+                  onClick={(e) => onAddClick?.(song, e.currentTarget)}
+                  size="small"
+                  // sx={{
+                  //   opacity: 0,
+                  //   transition: "opacity 0.2s ease",
+                  // }}
+                >
+                  <AddCircleOutlineOutlined sx={{ color: "white" }} />
+                </IconButton>
+              </PlusOverlay>
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                whiteSpace="nowrap"
+              >
+                {Math.floor((song.duration_ms ?? 0) / 60000)}:
+                {String(
+                  Math.floor(((song.duration_ms ?? 0) / 1000) % 60),
+                ).padStart(2, "0")}
+              </Typography>
+            </Box>
           </ListItem>
         ))}
       </List>
