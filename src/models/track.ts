@@ -1,6 +1,6 @@
 import { SimplifiedAlbum } from "./album";
 import { Artists } from "./artists";
-import { ExternalUrls, Images, Restrictions } from "./commonType";
+import { ExternalIds, ExternalUrls, Images, Restrictions } from "./commonType";
 
 // 트랙 나누기
 
@@ -9,31 +9,27 @@ import { ExternalUrls, Images, Restrictions } from "./commonType";
 // 공통 필드 존재하나, 옵셔널 여부 차이로 인해 Base 타입으로 묶지 않음
 
 export interface TrackObject {
-  album?: SimplifiedAlbum;
-  artists?: Artists[];
-  available_markets?: string[];
-  disc_number?: number;
-  duration_ms?: number;
-  explicit?: boolean;
-  external_ids?: {
-    isrc?: string;
-    ean?: string;
-    upc?: string;
-  };
-  external_urls?: ExternalUrls;
-  href?: string;
-  id?: string;
-  is_playable?: boolean;
-  linked_from?: TrackObject; // TrackObject가 그대로 들어간다
-  restrictions?: Restrictions;
+  album?: SimplifiedAlbum; //
+  artists?: Artists[]; //
+  available_markets?: string[]; //
+  disc_number?: number; //
+  duration_ms?: number; //
+  explicit?: boolean; //
+  external_ids?: ExternalIds;
+  external_urls?: ExternalUrls; //
+  href?: string; //
+  id?: string; //
+  is_playable?: boolean; //
+  linked_from?: TrackObject; // // TrackObject가 그대로 들어간다
+  restrictions?: Restrictions; //
 
-  name?: string;
+  name?: string; //
   popularity?: number;
-  preview_url?: string | null; // Deprecated 더 이상 사용되지 않으며, 미래에 제거될 수 있습니다.
-  track_number?: number;
-  type?: "track";
-  uri?: string;
-  is_local?: boolean;
+  preview_url?: string | null; // // Deprecated 더 이상 사용되지 않으며, 미래에 제거될 수 있습니다.
+  track_number?: number; //
+  type?: "track"; //
+  uri?: string; //
+  is_local?: boolean; //
 }
 
 export interface EpisodeObject {

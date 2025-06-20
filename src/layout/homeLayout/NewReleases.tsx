@@ -6,7 +6,7 @@ import BasicCard from "../../components/card/BasicCard";
 
 const NewReleases = () => {
   const { data, error, isLoading } = useGetNewReleases();
-  console.log("데이터 확인", data);
+  console.log("뉴릴리즈 데이터 확인", data);
   if (isLoading) {
     return <CommonSpinner />;
   }
@@ -20,7 +20,7 @@ const NewReleases = () => {
       </Typography>
       {data && data.albums.items.length > 0 ? (
         <Grid container spacing={0.5}>
-          {data.albums.items.map((album) => (
+          {data?.albums.items.slice(0, 6).map((album) => (
             <Grid size={{ xs: 6, sm: 4, md: 2 }} key={album.id}>
               <BasicCard
                 image={album.images[0].url}

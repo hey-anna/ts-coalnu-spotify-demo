@@ -30,3 +30,9 @@ export interface Owner {
   uri?: string;
   display_name?: string | null;
 }
+
+export interface ExternalIds {
+  isrc?: string;
+  ean?: string;
+  upc?: string;
+}
