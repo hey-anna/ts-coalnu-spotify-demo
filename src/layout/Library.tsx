@@ -1,5 +1,5 @@
-import { Box } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import { Box, useMediaQuery } from "@mui/material";
+import { styled, useTheme } from "@mui/material/styles";
 import LibraryHead from "./sidebar/LibraryHead";
 import EmptyPlaylist from "./sidebar/EmptyPlaylist";
 import useGetCurrentUserPlaylists from "../hooks/useGetCurrentUserPlaylists";
@@ -48,6 +48,8 @@ const ScrollArea = styled(Box)(({ theme }) => ({
 }));
 
 const Library = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const { ref, inView } = useInView();
 
   // 다음 함수 페칭할 수 있는 함수도 제공하는 친구
@@ -80,7 +82,8 @@ const Library = () => {
   const playlists = playlist?.pages.flatMap((page) => page.items) ?? [];
   return (
     <LibraryContainer>
-      <LibraryHead />
+      {/* PC - LibraryHead */}
+      {!isMobile && <LibraryHead />}
       <ScrollArea>
         {!playlist || playlist?.pages[0].total === 0 ? (
           <EmptyPlaylist />

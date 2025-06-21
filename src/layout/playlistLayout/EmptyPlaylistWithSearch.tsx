@@ -35,6 +35,11 @@ const SearchBar = styled(MuiBox)(({ theme }) => ({
   paddingBottom: theme.spacing(1),
   marginBottom: theme.spacing(2),
   height: 52,
+
+  // sm 이하일 때 width 100%
+  [theme.breakpoints.down("sm")]: {
+    width: "100%",
+  },
 }));
 
 const EmptyPlaylistWithSearch = ({ playlist_id }: { playlist_id: string }) => {

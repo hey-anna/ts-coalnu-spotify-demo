@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, useMediaQuery, useTheme } from "@mui/material";
 import LoginButton from "../components/button/LoginButton";
 import useGetCurrentUserProfile from "../hooks/useGetCurrentUserProfile";
 import { AccountCircle, ArrowForward } from "@mui/icons-material";
@@ -11,11 +11,18 @@ import UserProfileInfo from "./headerArea/UserProfileInfo";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import HeaderSearchBar from "./headerArea/HeaderSearchBar";
+import LibraryHead from "./sidebar/LibraryHead";
 
 const Haderbar = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   const navigate = useNavigate();
   const location = useLocation();
   const isSearchPage = location.pathname.startsWith("/search");
+  // const isPlaylistPage = location.pathname.includes("/playlist");
+  const isPlaylistPage = location.pathname === "/playlist";
+
   const [keyword, setKeyword] = useState<string>("");
 
   // 검색어 입력
@@ -114,6 +121,16 @@ const Haderbar = () => {
       px={2}
       // gap={30}
     >
+      {isMobile && isPlaylistPage && (
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
+          width="100%"
+        >
+          <LibraryHead />
+        </Box>
+      )}
       <Box flexGrow={1} pr={2} alignItems="center">
         {/* 왼쪽: 검색 페이지일 경우 검색바 */}
         {isSearchPage && (
@@ -122,7 +139,7 @@ const Haderbar = () => {
             onChange={handleSearchKeyword}
             // onSearch={handleSearch}
             onClear={handleClear}
-            width="70%"
+            // width="100%"
           />
         )}
       </Box>

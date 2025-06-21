@@ -1,5 +1,5 @@
 // components/common/UserProfileInfo.tsx
-import { Box } from "@mui/material";
+import { Box, useMediaQuery, useTheme } from "@mui/material";
 import { AccountCircle } from "@mui/icons-material";
 
 interface UserProfileInfoProps {
@@ -11,16 +11,28 @@ const UserProfileInfo = ({
   displayName,
   profileImgSrc,
 }: UserProfileInfoProps) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   return (
     <Box display="flex" alignItems="center" justifyContent="flex-end" gap={1.2}>
-      <Box>
+      {/* <Box>
         <span style={{ fontSize: 18 }}>
-          {/* You're logged in as{" "} */}
+         
           <span style={{ color: "#77d36f", fontWeight: 600 }}>
             {displayName}
           </span>
         </span>
-      </Box>
+      </Box> */}
+      {!isMobile && (
+        <Box>
+          <span style={{ fontSize: 18 }}>
+            {/* You're logged in as{" "} */}
+            <span style={{ color: "#77d36f", fontWeight: 600 }}>
+              {displayName}
+            </span>
+          </span>
+        </Box>
+      )}
       <Box
         width={48}
         height={48}

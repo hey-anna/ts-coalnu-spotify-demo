@@ -5,6 +5,8 @@ import {
   ListItemText,
   ListItem,
   List,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
 import { TrackObject } from "../../models/track";
 import useAddTrackToPlaylist from "../../hooks/useAddTrackToPlaylist";
@@ -18,6 +20,8 @@ const SearchResultList = ({
   playlist_id,
 }: SearchResultListProps & { playlist_id: string }) => {
   const { mutate } = useAddTrackToPlaylist();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const handleAddTrack = (track: TrackObject) => {
     if (!track.uri) {
@@ -52,7 +56,12 @@ const SearchResultList = ({
           </ListItemAvatar>
           <ListItemText
             primary={item.name}
-            secondary={`${item.artists?.[0]?.name} · ${item.album?.name}`}
+            // secondary={`${item.artists?.[0]?.name} · ${item.album?.name}`}
+            secondary={
+              !isMobile
+                ? `${item.artists?.[0]?.name} · ${item.album?.name}`
+                : item.artists?.[0]?.name
+            }
           />
         </ListItem>
       ))}

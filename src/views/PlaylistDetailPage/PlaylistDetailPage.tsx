@@ -10,6 +10,8 @@ import {
   TableHead,
   TableRow,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import useGetPlaylistItems from "../../hooks/useGetPlaylistItems";
 import ErrorMessage from "../../components/Alert/ErrorMessage";
@@ -19,8 +21,12 @@ import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
 import CommonSpinner from "../../components/spinner/CommonSpinner";
 import EmptyPlaylistWithSearch from "../../layout/playlistLayout/EmptyPlaylistWithSearch";
+import MobilePlaylistItem from "../../layout/playlistLayout/MobilePlaylistItem";
 
 const PlaylistDetailPage = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   const { id } = useParams<{ id: string }>();
   if (!id) return <Navigate to="/" />; // 예외처리
 
@@ -71,6 +77,9 @@ const PlaylistDetailPage = () => {
           borderRadius: 2,
           overflow: "hidden",
           bgcolor: "background.default",
+          [theme.breakpoints.down("sm")]: {
+            mb: 2,
+          },
         }}
       >
         <PlaylistHeader
@@ -82,17 +91,21 @@ const PlaylistDetailPage = () => {
       </Box>
       {playlist?.tracks?.total === 0 ? (
         <EmptyPlaylistWithSearch playlist_id={id} />
+      ) : isMobile ? (
+        <Box>
+          {flatItems.map((item, index) => (
+            <MobilePlaylistItem key={index} item={item} />
+          ))}
+          <Box ref={ref}>{isFetchingNextPage && <CommonSpinner />}</Box>
+          {!hasNextPage && pages.length > 0 && (
+            <Typography
+              sx={{ color: "text.secondary", py: 2, textAlign: "center" }}
+            >
+              🎵 더 이상 불러올 곡이 없습니다.
+            </Typography>
+          )}
+        </Box>
       ) : (
-        // <Box
-        //   sx={{
-        //     maxHeight: "calc(100vh - 360px)", // 예: 헤더, 타이틀 영역 높이 제외한 나머지
-        //     overflowY: "auto",
-        //     overflowX: "auto",
-        //     scrollbarWidth: "none",
-        //     "&::-webkit-scrollbar": { display: "none" },
-        //   }}
-        // >
-        // <TableContainer>
         <Table>
           <TableHead>
             <TableRow>
@@ -135,8 +148,6 @@ const PlaylistDetailPage = () => {
           </TableBody>
         </Table>
         // </TableContainer>
-
-        // </Box>
       )}
     </>
   );

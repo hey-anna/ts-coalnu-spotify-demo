@@ -1,4 +1,3 @@
-// layout/components/LibraryHead.tsx
 import { Box, Button, Typography } from "@mui/material";
 import { alpha, styled } from "@mui/material/styles";
 import { Bookmark, Add } from "@mui/icons-material";
@@ -12,8 +11,11 @@ const HeaderContainer = styled(Box)(({ theme }) => ({
   paddingLeft: 0,
   paddingRight: 0,
   color: theme.palette.text.primary,
-  [theme.breakpoints.down("md")]: {
-    justifyContent: "center",
+  // [theme.breakpoints.down("md")]: {
+  //   justifyContent: "center",
+  // },
+  [theme.breakpoints.down("sm")]: {
+    gap: "20px",
   },
 }));
 

@@ -7,12 +7,17 @@ import TestLoginModal from "../components/modal/TestLoginModal";
 import NavbarPC from "./navbar/NavbarPC";
 import NavbarMobile from "./navbar/NavbarMobile";
 
-const Layout = styled("div")({
+const Layout = styled("div")(({ theme }) => ({
   display: "flex",
   height: "100vh",
   padding: "8px",
   gap: "8px",
-});
+
+  [theme.breakpoints.down("sm")]: {
+    // gap: 0,
+    padding: 0,
+  },
+}));
 
 // mui 나 우리가 정한 theme 값 가져오기
 const Sidebar = styled("div")(({ theme }) => ({
@@ -84,6 +89,7 @@ const AppLayout = () => {
       <ContentBox
         sx={{
           overflowX: "auto",
+          paddingBottom: { xs: "80px", sm: "0" },
           scrollbarWidth: "none", // Firefox
           "&::-webkit-scrollbar": {
             display: "none", // Chrome, Safari

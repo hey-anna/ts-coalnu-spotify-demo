@@ -18,6 +18,12 @@ const SearchBarContainer = styled(Box)(({ theme }) => ({
   borderRadius: 9999, // pill 형태
   padding: `${theme.spacing(1)} ${theme.spacing(2)}`,
   height: 52,
+  // width: "auto",
+  width: "70%",
+
+  [theme.breakpoints.down("lg")]: {
+    width: "100%",
+  },
 }));
 
 const HeaderSearchBar = ({
