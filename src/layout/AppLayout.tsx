@@ -1,12 +1,11 @@
-import { styled, Typography } from "@mui/material";
+import { styled } from "@mui/material";
 import { Outlet } from "react-router-dom";
-// import theme from "../theme/theme";
 import { Box } from "@mui/material";
-import { Home, Search } from "@mui/icons-material";
-import { NavLink } from "react-router-dom";
 import Library from "./Library";
 import Haderbar from "./Haderbar";
 import TestLoginModal from "../components/modal/TestLoginModal";
+import NavbarPC from "./navbar/NavbarPC";
+import NavbarMobile from "./navbar/NavbarMobile";
 
 const Layout = styled("div")({
   display: "flex",
@@ -61,38 +60,6 @@ const ContentBox = styled(Box)(({ theme }) => ({
   // gap: "10px",
 }));
 
-const NavList = styled("ul")(({ theme }) => ({
-  listStyle: "none",
-  padding: "16px",
-  margin: 0,
-  display: "flex",
-  flexDirection: "column",
-  gap: "16px",
-  transition: "width 0.3s ease",
-  [theme.breakpoints.down("md")]: {
-    gap: "20px",
-    paddingTop: "12px",
-    paddingBottom: "12px",
-  },
-}));
-
-const StyledRouterLink = styled(NavLink)({
-  textDecoration: "none",
-});
-
-const NavItem = styled("div")<{ isActive?: boolean }>(
-  ({ theme, isActive }) => ({
-    display: "flex",
-    alignItems: "center",
-    gap: "20px",
-    color: isActive ? theme.palette.text.primary : theme.palette.text.secondary,
-
-    "&:hover": {
-      color: theme.palette.text.primary,
-    },
-  }),
-);
-
 // if (isLoadingProfile) {
 //   return <CommonSpinner />;
 // }
@@ -104,52 +71,11 @@ const AppLayout = () => {
   return (
     <Layout>
       <Sidebar>
-        {/* === 네비게이션 영역 (Home, Search) === */}
+        {/* === 네비게이션 영역 NavbarPC (Home, Search) === */}
         <ContentBox>
-          <NavList>
-            <li>
-              <StyledRouterLink to="/" end>
-                {({ isActive }: { isActive: boolean }) => (
-                  <NavItem isActive={isActive}>
-                    <Home
-                      sx={{
-                        fontSize: { xs: "1.75rem", md: "1.5rem" },
-                      }}
-                    />
-                    <Typography
-                      variant="h2"
-                      fontWeight={700}
-                      sx={{ display: { xs: "none", md: "block" } }}
-                    >
-                      Home
-                    </Typography>
-                  </NavItem>
-                )}
-              </StyledRouterLink>
-            </li>
-            <li>
-              <StyledRouterLink to="/search">
-                {({ isActive }: { isActive: boolean }) => (
-                  <NavItem isActive={isActive}>
-                    <Search
-                      sx={{
-                        fontSize: { xs: "1.75rem", md: "1.5rem" },
-                      }}
-                    />
-                    <Typography
-                      variant="h2"
-                      fontWeight={700}
-                      sx={{ display: { xs: "none", md: "block" } }}
-                    >
-                      Search
-                    </Typography>
-                  </NavItem>
-                )}
-              </StyledRouterLink>
-            </li>
-          </NavList>
+          <NavbarPC />
         </ContentBox>
-        {/* === 라이브러리 영역 (Your Library + 플레이리스트) === */}
+        {/* === 라이브러리 영역 사이드바 (Your Library + 플레이리스트) === */}
         <ContentBox height="100%" sx={{ flexGrow: 1, overflow: "hidden" }}>
           <Library />
         </ContentBox>
@@ -168,6 +94,8 @@ const AppLayout = () => {
         <Haderbar />
         <Outlet />
       </ContentBox>
+      {/* === 네비게이션 영역 NavbarMobile (Home, Search, library) === */}
+      <NavbarMobile />
       <TestLoginModal open={shouldShowLoginModal} />
     </Layout>
   );

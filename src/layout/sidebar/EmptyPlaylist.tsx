@@ -74,7 +74,7 @@ const EmptyPlaylist = () => {
   const [openTooltip, setOpenTooltip] = useState(true);
   return (
     <EmptyBox>
-      <TypographyGroup sx={{ display: { xs: "none", md: "flex" } }}>
+      <TypographyGroup sx={{ display: { sm: "none", md: "flex" } }}>
         <Typography variant="h2" fontSize="1rem" fontWeight={700}>
           Create your first playlist
         </Typography>

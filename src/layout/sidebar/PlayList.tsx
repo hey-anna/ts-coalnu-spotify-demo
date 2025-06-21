@@ -1,4 +1,3 @@
-import { Box } from "@mui/material";
 import PlaylistItem from "./PlaylistItem";
 import { SimplifiedPlaylist } from "../../models/playlist";
 import { useNavigate } from "react-router-dom";
@@ -8,7 +7,7 @@ interface PlaylistListProps {
   playlists: SimplifiedPlaylist[];
 }
 
-const PlaylistList = ({ playlists }: PlaylistListProps) => {
+const PlayList = ({ playlists }: PlaylistListProps) => {
   const navigate = useNavigate();
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const handleClick = (id: string) => {
@@ -33,4 +32,4 @@ const PlaylistList = ({ playlists }: PlaylistListProps) => {
   );
 };
 
-export default PlaylistList;
+export default PlayList;

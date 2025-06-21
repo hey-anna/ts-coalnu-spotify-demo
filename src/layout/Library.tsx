@@ -4,11 +4,12 @@ import LibraryHead from "./sidebar/LibraryHead";
 import EmptyPlaylist from "./sidebar/EmptyPlaylist";
 import useGetCurrentUserPlaylists from "../hooks/useGetCurrentUserPlaylists";
 import { useEffect, useState } from "react";
-import PlaylistList from "./sidebar/PlaylistList";
+// import PlayList from "./sidebar/PlayList";
 import useGetCurrentUserProfile from "../hooks/useGetCurrentUserProfile";
 import { useInView } from "react-intersection-observer";
 import CommonSpinner from "../components/spinner/CommonSpinner";
 import { PAGE_LIMIT10 } from "../configs/commonConfig";
+import PlayList from "./sidebar/PlayList";
 
 const LibraryContainer = styled(Box)(({ theme }) => ({
   // backgroundColor: theme.palette.background.paper,
@@ -40,6 +41,9 @@ const ScrollArea = styled(Box)(({ theme }) => ({
   "&::-webkit-scrollbar-thumb": {
     backgroundColor: theme.palette.grey[700],
     borderRadius: "4px",
+  },
+  [theme.breakpoints.down("md")]: {
+    paddingRight: 0, // md 이하일 때 제거
   },
 }));
 
@@ -81,7 +85,7 @@ const Library = () => {
         {!playlist || playlist?.pages[0].total === 0 ? (
           <EmptyPlaylist />
         ) : (
-          <PlaylistList playlists={playlists} />
+          <PlayList playlists={playlists} />
         )}
         <div ref={ref}>{isFetchingNextPage && <CommonSpinner />}</div>
       </ScrollArea>

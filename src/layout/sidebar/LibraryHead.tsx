@@ -52,8 +52,19 @@ const LibraryHead = () => {
   return (
     <HeaderContainer>
       <IconTextWrapper>
-        <Bookmark />
-        <Typography variant="h2" fontWeight={700} fontSize="1rem">
+        <Bookmark
+          sx={{
+            display: { xs: "block", sm: "none", md: "block" },
+          }}
+        />
+        <Typography
+          variant="h2"
+          fontWeight={700}
+          fontSize="1rem"
+          sx={{
+            display: { xs: "block", sm: "none", md: "block" },
+          }}
+        >
           Your Library
         </Typography>
       </IconTextWrapper>

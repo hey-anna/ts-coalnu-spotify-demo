@@ -60,16 +60,18 @@ export const router = createBrowserRouter([
         path: "playlist/:id",
         element: withAuthGuard(PlaylistDetailPage),
       },
-      {
-        path: "playlist",
-        element: withAuthGuard(PlaylistPage),
-      }, // 모바일
+
       {
         path: "callback",
         element: withSuspense(CallbackPage),
       },
     ],
   },
+  // 모바일 전용 라이브러리 페이지
+  {
+    path: "playlist",
+    element: withAuthGuard(PlaylistPage),
+  }, // 모바일
   // 로그인 요구 페이지 (AppLayout 미적용: AppLayout 없이 보여야 하니까 밖에!)
   {
     path: "/login-required",

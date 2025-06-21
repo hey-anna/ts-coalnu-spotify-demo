@@ -15,6 +15,10 @@ const PlaylistBox = styled(Box, {
   "&:hover": {
     backgroundColor: theme.palette.action.selected, // 항상 동일한 색으로 hover 처리
   },
+  [theme.breakpoints.down("md")]: {
+    paddingRight: 0, // md 이하일 때 제거
+    paddingLeft: 0,
+  },
 }));
 
 interface PlaylistItemProps {
@@ -63,7 +67,7 @@ const PlaylistItem = ({
           fontWeight={600}
           noWrap
           sx={{
-            display: { xs: "none", md: "block" },
+            display: { xs: "block", sm: "none", md: "block" },
             overflow: "hidden",
             textOverflow: "ellipsis",
           }}
