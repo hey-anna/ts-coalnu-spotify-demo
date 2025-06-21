@@ -9,10 +9,10 @@ import useLogin from "../hooks/useLogin";
 import UserProfileInfo from "./headerArea/UserProfileInfo";
 // import { useQueryClient } from "@tanstack/react-query";
 import { useLocation, useNavigate } from "react-router-dom";
-import NavbarSearchBar from "./searchLayout/NavbarSearchBar";
 import { useState } from "react";
+import HeaderSearchBar from "./headerArea/HeaderSearchBar";
 
-const Navbar = () => {
+const Haderbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const isSearchPage = location.pathname.startsWith("/search");
@@ -117,7 +117,7 @@ const Navbar = () => {
       <Box flexGrow={1} pr={2} alignItems="center">
         {/* 왼쪽: 검색 페이지일 경우 검색바 */}
         {isSearchPage && (
-          <NavbarSearchBar
+          <HeaderSearchBar
             keyword={keyword}
             onChange={handleSearchKeyword}
             // onSearch={handleSearch}
@@ -126,7 +126,6 @@ const Navbar = () => {
           />
         )}
       </Box>
-
       {isLoadingProfile ? (
         <Box width={48} height={24} /> // 스켈리톤으로 대응하려했으나, 조건분기 및 토큰만료 시간으로 처리 함
       ) : !userProfile || isTokenStale ? ( // 여기로 로그인 버튼 조건분기를 올기고, 토큰만료 전 화면표시
@@ -157,4 +156,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Haderbar;

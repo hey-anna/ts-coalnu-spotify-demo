@@ -20,7 +20,7 @@ const SearchBarContainer = styled(Box)(({ theme }) => ({
   height: 52,
 }));
 
-const NavbarSearchBar = ({
+const HeaderSearchBar = ({
   keyword,
   onChange,
   // onSearch,
@@ -67,4 +67,4 @@ const NavbarSearchBar = ({
   );
 };
 
-export default NavbarSearchBar;
+export default HeaderSearchBar;

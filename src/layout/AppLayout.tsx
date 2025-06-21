@@ -5,7 +5,7 @@ import { Box } from "@mui/material";
 import { Home, Search } from "@mui/icons-material";
 import { NavLink } from "react-router-dom";
 import Library from "./Library";
-import Navbar from "./Navbar";
+import Haderbar from "./Haderbar";
 import TestLoginModal from "../components/modal/TestLoginModal";
 
 const Layout = styled("div")({
@@ -165,7 +165,7 @@ const AppLayout = () => {
           // paddingBottom: "24px",
         }}
       >
-        <Navbar />
+        <Haderbar />
         <Outlet />
       </ContentBox>
       <TestLoginModal open={shouldShowLoginModal} />
