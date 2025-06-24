@@ -1,7 +1,7 @@
 # spotify-demo
 
-이 프로젝트는 React 19.1 및 최신 웹 기술을 활용하여 Spotify의 핵심 기능을 재현하는 데 초점을 맞춘 미니 클론 앱입니다.  
-React Router v7.6.1, Tailwind CSS, Webpack 등을 활용하여 모던한 웹 애플리케이션 개발 경험을 제공합니다.
+이 프로젝트는 React 19.1 및 최신 웹 기술을 활용하여 Spotify의 핵심 기능을 재현하는 데 초점을 맞춘 미니 클론 앱입니다.
+React Router v7.6.1, MUI(Material UI), Webpack 등을 활용하여 모던한 웹 애플리케이션 개발 경험을 제공합니다.
 
 ---
 
@@ -9,7 +9,14 @@ React Router v7.6.1, Tailwind CSS, Webpack 등을 활용하여 모던한 웹 애
 
 - First created on: **2025.06**
 - React 19.1 및 React Router 7.6.1 기반의 학습용 프로젝트입니다.
-- Webpack, Babel, Tailwind CSS 등의 기본 설정이 완료된 상태입니다.
+- Webpack, Babel 등의 기본 설정이 완료된 상태입니다.
+- Tailwind CSS는 초기 세팅만 되어 있으며, 실제 스타일링에는 사용되지 않았습니다.
+
+## 🚧 현재 미구현 / 예정 기능
+
+- [ ] 음악 재생 기능 (오디오 플레이어 및 재생 컨트롤)
+- [ ] 반응형 모바일 UI 수정 (헤더/네비게이션 등 모바일 대응)
+- [ ] 상세 페이지 및 인터랙션 마무리 (디테일 스타일 수정 포함)
 
 ---
 
@@ -23,6 +30,7 @@ React Router v7.6.1, Tailwind CSS, Webpack 등을 활용하여 모던한 웹 애
 - `webpack.config.js` 및 `.babelrc` 파일 추가
 - CSS 및 Babel 로더(`css-loader`, `babel-loader` 등) 설치 및 설정
 - Webpack을 통한 번들링 및 Babel을 통한 트랜스파일링 환경 구성
+- Tailwind CSS는 설치만 되어 있으며, 현재 스타일링에는 사용되지 않습니다.
 
 ---
 
@@ -32,7 +40,7 @@ React Router v7.6.1, Tailwind CSS, Webpack 등을 활용하여 모던한 웹 애
 
 - **프레임워크**: React 19.1
 - **라우팅**: React Router v7.6.1
-- **스타일링**: Tailwind CSS 4.1.8, MUI (Material UI)
+- **스타일링**: MUI (Material UI)
 - **번들러**: Webpack 5.99.9
 - **패키지 매니저**: Yarn
 - **프로그래밍 언어**: TypeScript
@@ -73,7 +81,7 @@ yarn start
 # 프로덕션 빌드
 yarn build
 
-# Tailwind CSS 초기화
+# Tailwind CSS 초기화 (설치는 되어 있으나 현재 사용하지 않음)
 yarn tailwind:init
 
 # 테스트 실행
